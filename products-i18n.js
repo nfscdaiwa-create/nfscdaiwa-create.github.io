@@ -40,6 +40,14 @@
     }
   };
 
+  const seo = {
+    en:{title:'Japanese Building Materials Product Finder | EST Co., Ltd.',description:'Browse Japanese kitchens, bathrooms, flooring, wallcoverings, doors and board systems, then request export pricing by official manufacturer code.'},
+    zh:{title:'日本建材产品选型与出口报价 | EST 株式会社',description:'按日本制造商官方型号选择厨房、卫浴、地板、壁纸、室内门和板材，并向 EST 申请合并出口报价。'},
+    hi:{title:'जापानी बिल्डिंग सामग्री उत्पाद चयन | EST',description:'जापानी किचन, बाथरूम, फ्लोरिंग, वॉलकवरिंग, दरवाज़े और बोर्ड सिस्टम चुनें और आधिकारिक कोड से निर्यात कोटेशन मांगें।'},
+    es:{title:'Selector de materiales de construcción japoneses | EST',description:'Seleccione cocinas, baños, suelos, revestimientos, puertas y paneles japoneses y solicite precio de exportación por código oficial.'},
+    fr:{title:'Sélecteur de matériaux de construction japonais | EST',description:'Choisissez cuisines, salles de bains, sols, revêtements, portes et panneaux japonais, puis demandez un devis export par référence officielle.'}
+  };
+
   const setText = (el, value) => {
     if (!el || value === undefined) return;
     if (!el.dataset.originalText) el.dataset.originalText = el.textContent;
@@ -47,7 +55,17 @@
   };
   const setProductLanguage = lang => {
     const c = copy[lang] || copy.en;
+    const meta = seo[lang] || seo.en;
+    const canonicalUrl = lang === 'en' ? 'https://jpbuildest.com/products.html' : `https://jpbuildest.com/products.html?lang=${lang}`;
     document.documentElement.lang = lang;
+    document.title = meta.title;
+    document.querySelector('meta[name="description"]').setAttribute('content', meta.description);
+    document.querySelector('link[rel="canonical"]').setAttribute('href', canonicalUrl);
+    document.querySelector('meta[property="og:url"]').setAttribute('content', canonicalUrl);
+    document.querySelector('meta[property="og:title"]').setAttribute('content', meta.title);
+    document.querySelector('meta[property="og:description"]').setAttribute('content', meta.description);
+    document.querySelector('meta[name="twitter:title"]').setAttribute('content', meta.title);
+    document.querySelector('meta[name="twitter:description"]').setAttribute('content', meta.description);
     setText(document.querySelector('.top b'), c.top[0]); setText(document.querySelector('.top span'), c.top[1]);
     [...document.querySelectorAll('.nav a')].forEach((el, i) => setText(el, c.nav[i]));
     setText(document.querySelector('.hero .eyebrow'), c.hero[0]); setText(document.querySelector('.hero h1'), c.hero[1]); setText(document.querySelector('.hero p'), c.hero[2]);
@@ -58,10 +76,10 @@
     const fine = document.querySelector('.fine .wrap'); if (fine) { if (!fine.dataset.originalText) fine.dataset.originalText = fine.textContent; fine.textContent = c.fine[0] + ' ' + c.fine[1]; }
     [...document.querySelectorAll('footer .wrap span')].forEach((el, i) => setText(el, c.footer[i]));
     document.getElementById('langToggle').value = lang;
-    const url = new URL(window.location.href); url.searchParams.set('lang', lang); history.replaceState(null, '', url);
+    const url = new URL(window.location.href); if (lang === 'en') url.searchParams.delete('lang'); else url.searchParams.set('lang', lang); history.replaceState(null, '', url);
     document.querySelectorAll('a[href^="index.html"]').forEach(link => {
       const target = new URL(link.getAttribute('href'), window.location.href);
-      target.searchParams.set('lang', lang);
+      if (lang === 'en') target.searchParams.delete('lang'); else target.searchParams.set('lang', lang);
       link.href = target.pathname.split('/').pop() + target.search + target.hash;
     });
   };
