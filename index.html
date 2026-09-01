@@ -38,7 +38,7 @@
 <link rel="preload" as="image" href="img/japan-showroom-kitchen-island.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600;700&amp;family=Noto+Serif+JP:wght@600;700;800&amp;display=swap" rel="stylesheet">
 <style>
   :root{
     --indigo-deep: #0D1C34;      /* 日本高阶建筑靛蓝 */
@@ -51,6 +51,7 @@
     --ash-gray: #646C77;
     --mist-border: #DFE2E6;
     --emerald: #2D6A4F;
+    --shu: #A33A2B;              /* 朱色——日本印色的克制强调 */
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -317,6 +318,13 @@
     background:var(--indigo-deep);
     margin-bottom:34px;
   }
+  .hero-band .wrap::before{
+    content:'';position:absolute;inset:0;pointer-events:none;opacity:.055;
+    background-image:
+      linear-gradient(30deg,transparent 46%,rgba(255,255,255,.8) 47%,rgba(255,255,255,.8) 48%,transparent 49%),
+      linear-gradient(150deg,transparent 46%,rgba(255,255,255,.8) 47%,rgba(255,255,255,.8) 48%,transparent 49%);
+    background-size:38px 66px;
+  }
   .hero-band::before{
     content:''; position:absolute; inset:0; z-index:0;
     background-image:url('img/japan-showroom-kitchen-island.webp');
@@ -385,18 +393,31 @@
     flex-direction: column;
     justify-content: center;
   }
+  .hero-japan-signature{display:flex;align-items:center;gap:12px;margin-bottom:16px;color:#fff;position:relative;z-index:1;}
+  .hero-japan-signature .jp{
+    font-family:'Noto Serif JP',serif;font-size:18px;font-weight:800;letter-spacing:.14em;white-space:nowrap;
+  }
+  .hero-japan-signature .rule{width:40px;height:1px;background:rgba(255,255,255,.42);}
+  .hero-japan-signature .en{
+    font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.18em;color:#C7D2E3;white-space:nowrap;
+  }
+  .hero-japan-signature .seal{
+    width:25px;height:25px;display:grid;place-items:center;border:1px solid rgba(213,96,76,.9);color:#F0A899;
+    font-family:'Noto Serif JP',serif;font-size:12px;line-height:1;transform:rotate(-2deg);margin-left:2px;
+  }
   .hero-right {
     position: relative;
     z-index: 2;
   }
   .hero-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Noto Serif JP','Plus Jakarta Sans',serif;
     font-size: clamp(32px, 3.8vw, 44px);
-    font-weight: 800;
-    line-height: 1.15;
+    font-weight: 700;
+    line-height: 1.18;
     color: var(--indigo-deep);
     margin: 14px 0 18px;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.018em;
+    text-wrap:balance;
   }
   .hero-intro {
     font-size: 15px;
@@ -454,6 +475,45 @@
   }
   @media(max-width: 560px) {
     .b2b-trust-bar { grid-template-columns: repeat(2, 1fr); }
+    .hero-japan-signature{gap:8px;margin-bottom:13px;}
+    .hero-japan-signature .rule{width:22px;}
+    .hero-japan-signature .en{font-size:8px;letter-spacing:.11em;}
+    .hero-japan-signature .seal{width:22px;height:22px;font-size:11px;}
+  }
+
+  /* ---------- 日本制造品质原则 ---------- */
+  .monozukuri{
+    position:relative;overflow:hidden;background:#F6F2EA;border-top:1px solid #E5DED1;border-bottom:1px solid #E1D8C9;
+  }
+  .monozukuri::before{
+    content:'';position:absolute;inset:0;pointer-events:none;opacity:.24;
+    background-image:radial-gradient(circle at 1px 1px,rgba(138,110,69,.18) 1px,transparent 0);
+    background-size:18px 18px;
+  }
+  .monozukuri-inner{position:relative;padding-top:28px;padding-bottom:30px;}
+  .mono-head{display:grid;grid-template-columns:210px 1fr;gap:34px;align-items:end;margin-bottom:21px;}
+  .mono-title{display:flex;align-items:center;gap:12px;}
+  .mono-title .jp{font-family:'Noto Serif JP',serif;font-size:25px;font-weight:800;letter-spacing:.13em;color:var(--indigo-deep);}
+  .mono-title .seal{width:29px;height:29px;display:grid;place-items:center;background:var(--shu);color:#fff;font-family:'Noto Serif JP',serif;font-size:13px;}
+  .mono-head p{font-size:13px;line-height:1.65;color:#5D626B;max-width:780px;}
+  .mono-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(138,110,69,.28);border-bottom:1px solid rgba(138,110,69,.28);}
+  .mono-item{padding:19px 22px 20px;border-right:1px solid rgba(138,110,69,.24);background:rgba(255,255,255,.38);}
+  .mono-item:last-child{border-right:0;}
+  .mono-item-head{display:flex;align-items:baseline;gap:10px;margin-bottom:7px;}
+  .mono-item .jp{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:800;color:var(--indigo-deep);letter-spacing:.08em;}
+  .mono-item .en{font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:700;letter-spacing:.13em;color:var(--shu);}
+  .mono-item p{font-size:11.5px;line-height:1.58;color:#676A70;}
+  @media(max-width:860px){
+    .mono-head{grid-template-columns:1fr;gap:8px;}
+    .mono-grid{grid-template-columns:repeat(2,1fr);}
+    .mono-item:nth-child(2){border-right:0;}
+    .mono-item:nth-child(-n+2){border-bottom:1px solid rgba(138,110,69,.24);}
+  }
+  @media(max-width:520px){
+    .monozukuri-inner{padding-top:23px;padding-bottom:24px;}
+    .mono-title .jp{font-size:22px;}
+    .mono-item{padding:16px 13px;}
+    .mono-item .jp{font-size:16px;}
   }
 
   /* 2x3 结构化数据网格 */
@@ -1076,9 +1136,15 @@
   <div class="wrap">
     <div class="hero-grid reveal">
       <div class="hero-left">
+        <div class="hero-japan-signature" aria-label="Japan Quality">
+          <span class="jp notranslate" lang="ja" translate="no">日本品質</span>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="en" data-i18n="hero_tagline">JAPAN QUALITY. GLOBAL REACH.</span>
+          <span class="seal notranslate" lang="ja" translate="no" aria-hidden="true">匠</span>
+        </div>
         <span class="eyebrow" data-i18n="hero_eyebrow">EXPORT &amp; LOGISTICS DESK</span>
-        <h1 class="hero-title" data-i18n="hero_title">Japanese Building Materials, Ready for Container-Scale Sourcing</h1>
-        <p class="hero-intro" data-i18n="hero_intro">EST helps overseas developers, importers, distributors, and hospitality groups consolidate products from Japan's elite housing and interior manufacturers. Review catalog files directly and request a consolidated quote.</p>
+        <h1 class="hero-title" data-i18n="hero_title">Japan Quality, Specified for the World.</h1>
+        <p class="hero-intro" data-i18n="hero_intro">Curated Japanese building materials, multi-brand sourcing and export coordination &mdash; delivered with the precision, traceability and care expected of Japanese manufacturing.</p>
         
         <div class="hero-bullets">
           <div class="bullet-item">
@@ -1213,6 +1279,36 @@
     </div>
   </div>
   <span class="hero-photo-rights">© EST Co., Ltd. · No unauthorized use</span>
+  </div>
+
+  <div class="monozukuri" aria-labelledby="monozukuri-title">
+    <div class="wrap monozukuri-inner">
+      <div class="mono-head reveal">
+        <div class="mono-title">
+          <span class="jp notranslate" lang="ja" translate="no" id="monozukuri-title">ものづくり</span>
+          <span class="seal notranslate" lang="ja" translate="no" aria-hidden="true">和</span>
+        </div>
+        <p data-i18n="mono_intro">Japanese quality is not a slogan. It is the discipline of checking dimensions, finishes, documentation and packing details before a product leaves Japan.</p>
+      </div>
+      <div class="mono-grid reveal">
+        <article class="mono-item">
+          <div class="mono-item-head"><span class="jp notranslate" lang="ja" translate="no">精度</span><span class="en">PRECISION</span></div>
+          <p data-i18n="mono_precision">Model, module, finish and accessory codes checked line by line.</p>
+        </article>
+        <article class="mono-item">
+          <div class="mono-item-head"><span class="jp notranslate" lang="ja" translate="no">素材</span><span class="en">MATERIAL</span></div>
+          <p data-i18n="mono_material">Original manufacturer specifications and material identity retained.</p>
+        </article>
+        <article class="mono-item">
+          <div class="mono-item-head"><span class="jp notranslate" lang="ja" translate="no">検品</span><span class="en">INSPECTION</span></div>
+          <p data-i18n="mono_inspection">Receiving and pre-loading checks documented for each order scope.</p>
+        </article>
+        <article class="mono-item">
+          <div class="mono-item-head"><span class="jp notranslate" lang="ja" translate="no">誠実</span><span class="en">INTEGRITY</span></div>
+          <p data-i18n="mono_integrity">Availability, lead time and applicable documents confirmed before commitment.</p>
+        </article>
+      </div>
+    </div>
   </div>
 
   <div class="wrap" style="padding-top:6px;">
@@ -1630,9 +1726,9 @@
   <div class="wrap">
     <div class="split reveal">
       <div class="copy">
-        <span class="eyebrow" data-i18n="why_eyebrow">QUALITY CONTROL</span>
-        <h2 class="disp" style="font-size:clamp(24px,2.8vw,32px);font-weight:800;margin:14px 0 18px;"><span data-i18n="why_h2">One Inspection Checklist, Multi-Brand Shipments.</span></h2>
-        <p data-i18n="why_p">We apply a documented receiving and pre-loading inspection process. The exact checks and acceptance criteria are confirmed against the product specification and agreed order scope.</p>
+        <span class="eyebrow" data-i18n="why_eyebrow">JAPANESE QUALITY CONTROL</span>
+        <h2 class="disp" style="font-size:clamp(24px,2.8vw,32px);font-weight:800;margin:14px 0 18px;"><span data-i18n="why_h2">Japanese Precision, Documented for Export.</span></h2>
+        <p data-i18n="why_p">Quality is built through disciplined detail: receiving records, specification matching and pre-loading checks. The exact acceptance criteria are confirmed against each product and the agreed order scope.</p>
         <ul class="qc-list">
           <li><span data-i18n="qc_1">Dimensional criteria</span><span class="qcnum" data-i18n="qc_1_val">Product-specific</span></li>
           <li><span data-i18n="qc_2">Internal receiving checklist</span><span class="qcnum" data-i18n="qc_2_val">Documented scope</span></li>
@@ -2063,6 +2159,71 @@
       nav_ledger:"Marques partenaires",nav_catalog:"Catalogue produits",nav_process:"Processus export",nav_quality:"Norme qualité",nav_contact:"Contact",ann_badge:"DISTRIBUTEUR MONDIAL",ann_text:"EST Co., LTD. : partenaire export basé à Tokyo pour les grandes marques japonaises.",hero_eyebrow:"BUREAU EXPORT ET LOGISTIQUE",hero_title:"Matériaux japonais, prêts pour un approvisionnement par conteneur",hero_intro:"EST aide les promoteurs, importateurs, distributeurs et groupes hôteliers à regrouper les produits de fabricants japonais et à obtenir un devis unique.",bullet_1:"Sourcing direct auprès des fabricants et coordination export",bullet_2:"Consolidation de conteneurs FCL / LCL",bullet_3:"Fiches techniques, échantillons et coordination conformité",form_tag_wholesale:"CANAL DIRECT",form_head_title:"Demander un devis commercial",form_head_desc:"Envoyez votre liste technique ; notre bureau répond sous 1 jour ouvré.",btn_submit_quotation:"Envoyer la demande →",lbl_email:"E-mail",lbl_phone_jst:"Téléphone (JST)",lbl_head_office:"Siège",lbl_rep:"Représentant",lbl_exportdesks:"Bureaux export",lbl_follow:"Contact direct",lbl_download_title:"Informations nécessaires pour le devis",lbl_download_desc:"Envoyez ces trois éléments pour vérifier export, délai et prix.",quote_product:"Code modèle, URL officielle ou capture",quote_destination:"Pays, port et norme locale",quote_volume:"Quantité, étape du projet et délai souhaité",lbl_instant_desk:"Bureau sourcing direct",lbl_download_desc_2:"Contactez directement notre équipe internationale.",btn_chat_whatsapp:"Contacter sur WhatsApp ↗",btn_copy_email:"Copier l’e-mail professionnel ⎘",process_eyebrow:"PARCOURS DE COOPÉRATION B2B",process_h2:"Un parcours structuré pour acheter au Japon",process_p:"Nous alignons les normes locales, organisons la liste technique et coordonnons l’export.",f_h2:"Démarrer votre demande de conteneur",f_p:"Contactez notre bureau export de Tokyo et envoyez votre liste technique."
     }
   };
+  Object.assign(i18nTokens.en, {
+    hero_tagline:"JAPAN QUALITY. GLOBAL REACH.",
+    hero_title:"Japan Quality, Specified for the World.",
+    hero_intro:"Curated Japanese building materials, multi-brand sourcing and export coordination — delivered with the precision, traceability and care expected of Japanese manufacturing.",
+    mono_intro:"Japanese quality is not a slogan. It is the discipline of checking dimensions, finishes, documentation and packing details before a product leaves Japan.",
+    mono_precision:"Model, module, finish and accessory codes checked line by line.",
+    mono_material:"Original manufacturer specifications and material identity retained.",
+    mono_inspection:"Receiving and pre-loading checks documented for each order scope.",
+    mono_integrity:"Availability, lead time and applicable documents confirmed before commitment.",
+    why_eyebrow:"JAPANESE QUALITY CONTROL",
+    why_h2:"Japanese Precision, Documented for Export.",
+    why_p:"Quality is built through disciplined detail: receiving records, specification matching and pre-loading checks. The exact acceptance criteria are confirmed against each product and the agreed order scope."
+  });
+  Object.assign(i18nTokens.zh, {
+    hero_tagline:"日本品质 · 服务全球",
+    hero_title:"世界建筑，选择日本品质。",
+    hero_intro:"严选日本高品质建材，整合品牌、供应链与出口服务，以日本制造所重视的精度、可追溯性与细致管理连接全球项目。",
+    mono_intro:"日本品质不是口号，而是产品离开日本前，对尺寸、饰面、资料与包装细节逐项确认的纪律。",
+    mono_precision:"型号、模数、饰面与配件编码逐项核对。",
+    mono_material:"保留制造商原始规格与材料身份。",
+    mono_inspection:"按订单范围记录收货及装柜前检查。",
+    mono_integrity:"承诺前确认供货、交期与适用资料。",
+    why_eyebrow:"日本式品质管理",
+    why_h2:"日本精度，以出口记录落实。",
+    why_p:"品质来自对细节的纪律：收货记录、规格匹配与装柜前检查。具体验收标准按每项产品及双方确认的订单范围执行。"
+  });
+  Object.assign(i18nTokens.hi, {
+    hero_tagline:"जापानी गुणवत्ता · वैश्विक पहुँच",
+    hero_title:"विश्व के लिए निर्दिष्ट जापानी गुणवत्ता।",
+    hero_intro:"चुनिंदा जापानी बिल्डिंग सामग्री, मल्टी-ब्रांड सोर्सिंग और निर्यात समन्वय — जापानी निर्माण की सटीकता, ट्रेसेबिलिटी और सावधानी के साथ।",
+    mono_intro:"जापानी गुणवत्ता एक नारा नहीं, बल्कि उत्पाद के जापान छोड़ने से पहले आयाम, फिनिश, दस्तावेज़ और पैकिंग की अनुशासित जाँच है।",
+    mono_precision:"मॉडल, मॉड्यूल, फिनिश और एक्सेसरी कोड पंक्ति दर पंक्ति जाँचे जाते हैं।",
+    mono_material:"मूल निर्माता विनिर्देश और सामग्री की पहचान सुरक्षित रहती है।",
+    mono_inspection:"प्राप्ति और लोडिंग-पूर्व जाँच हर ऑर्डर दायरे के लिए दर्ज होती है।",
+    mono_integrity:"प्रतिबद्धता से पहले उपलब्धता, लीड टाइम और दस्तावेज़ की पुष्टि।",
+    why_eyebrow:"जापानी गुणवत्ता नियंत्रण",
+    why_h2:"जापानी सटीकता, निर्यात के लिए दस्तावेज़ीकृत।",
+    why_p:"गुणवत्ता अनुशासित विवरण से बनती है: प्राप्ति रिकॉर्ड, विनिर्देश मिलान और लोडिंग-पूर्व जाँच। स्वीकृति मानदंड उत्पाद और सहमत ऑर्डर दायरे के अनुसार तय होते हैं।"
+  });
+  Object.assign(i18nTokens.es, {
+    hero_tagline:"CALIDAD JAPONESA. ALCANCE GLOBAL.",
+    hero_title:"Calidad japonesa, especificada para el mundo.",
+    hero_intro:"Materiales japoneses seleccionados, abastecimiento multimarca y coordinación de exportación, con la precisión, trazabilidad y cuidado propios de la fabricación japonesa.",
+    mono_intro:"La calidad japonesa no es un eslogan. Es la disciplina de revisar medidas, acabados, documentación y embalaje antes de que el producto salga de Japón.",
+    mono_precision:"Códigos de modelo, módulo, acabado y accesorios verificados línea por línea.",
+    mono_material:"Se conservan la especificación original y la identidad del material.",
+    mono_inspection:"Recepción y controles previos a la carga documentados por pedido.",
+    mono_integrity:"Disponibilidad, plazo y documentos confirmados antes del compromiso.",
+    why_eyebrow:"CONTROL DE CALIDAD JAPONÉS",
+    why_h2:"Precisión japonesa, documentada para exportación.",
+    why_p:"La calidad nace del detalle disciplinado: registros de recepción, verificación de especificaciones y controles previos a la carga. Los criterios se confirman para cada producto y alcance acordado."
+  });
+  Object.assign(i18nTokens.fr, {
+    hero_tagline:"QUALITÉ JAPONAISE. PORTÉE MONDIALE.",
+    hero_title:"La qualité japonaise, spécifiée pour le monde.",
+    hero_intro:"Matériaux japonais sélectionnés, sourcing multimarque et coordination export, avec la précision, la traçabilité et le soin propres à la fabrication japonaise.",
+    mono_intro:"La qualité japonaise n’est pas un slogan. C’est la discipline de vérifier dimensions, finitions, documents et emballage avant le départ du Japon.",
+    mono_precision:"Références de modèle, module, finition et accessoires vérifiées ligne par ligne.",
+    mono_material:"Spécifications d’origine et identité des matériaux conservées.",
+    mono_inspection:"Réception et contrôles avant chargement documentés par commande.",
+    mono_integrity:"Disponibilité, délai et documents confirmés avant engagement.",
+    why_eyebrow:"CONTRÔLE QUALITÉ JAPONAIS",
+    why_h2:"La précision japonaise, documentée pour l’export.",
+    why_p:"La qualité repose sur une discipline du détail : réception, concordance des spécifications et contrôles avant chargement. Les critères sont confirmés selon chaque produit et le périmètre convenu."
+  });
   Object.assign(i18nTokens.zh, {nav_product_finder:"产品选型",lbl_buyer_type:"采购商类型",lbl_market_dest:"目的国家 / 港口",lbl_prod_category:"主要产品类别",lbl_msg_spec:"询价详情 / 目标型号",lbl_fname:"名",lbl_lname:"姓",lbl_company:"公司名称（可选）"});
   Object.assign(i18nTokens.hi, {nav_product_finder:"उत्पाद चयन",nav_brand_stories:"ब्रांड स्टोरी",lbl_buyer_type:"खरीदार का प्रकार",lbl_market_dest:"गंतव्य देश / पोर्ट",lbl_prod_category:"मुख्य उत्पाद श्रेणी",lbl_msg_spec:"पूछताछ विवरण / मॉडल",lbl_fname:"पहला नाम",lbl_lname:"उपनाम",lbl_company:"कंपनी का नाम (वैकल्पिक)"});
   Object.assign(i18nTokens.es, {nav_product_finder:"Selector de productos",nav_brand_stories:"Historias de marca",lbl_buyer_type:"Tipo de comprador",lbl_market_dest:"País / puerto de destino",lbl_prod_category:"Categoría principal",lbl_msg_spec:"Detalles / códigos objetivo",lbl_fname:"Nombre",lbl_lname:"Apellido",lbl_company:"Empresa (opcional)"});
@@ -2150,6 +2311,11 @@
     fr:{ledger_eyebrow:"REGISTRE DES MARQUES",ledger_h2:"Chaque commande, entièrement documentée.",ledger_p:"Nous achetons auprès des grands fabricants japonais et chargeons les conteneurs multimarques selon le manifeste d’origine.",th_manufacturer:"Fabricant",th_jpname:"Nom japonais",th_category:"Périmètre export",th_origin:"Origine",th_status:"Statut",status_exclusive:"Distributeur",ledger_cat_lixil:"Fenêtres, volets, portes d’entrée, intérieur, extérieur, carrelage, cuisine, salle de bains et robinetterie.",ledger_cat_panasonic:"Cuisine, salle de bains, lavabo, toilettes, éclairage, intérieur, rangement, sols et équipements.",ledger_cat_daiken:"Gamme résidentielle et commerciale, catalogues, CAD/BIM et ressources techniques.",ledger_cat_noda:"Portes intérieures et coulissantes, rangement, sols, escaliers, murs et systèmes de construction.",ledger_cat_sangetsu:"Papiers peints, films, sols, rideaux, tissus, carrelage et accessoires.",ledger_cat_lilycolor:"Papiers peints, rideaux, sols, collections et références de projets.",ledger_cat_nissinex:"Panneaux bois, sols, panneaux non combustibles, GRC, carrelage et papier peint.",ledger_cat_sincol:"Revêtements, rideaux, sols, moquettes, tissus d’ameublement et produits écologiques.",ledger_cat_toli:"Sols, moquettes, revêtements, rideaux, LVT, vinyle et dalles de moquette.",ledger_cat_chiyoda:"Plaques de plâtre, ciment et silicate de calcium, panneaux acoustiques et ossature.",why_eyebrow:"CONTRÔLE QUALITÉ",why_h2:"Une checklist pour les expéditions multimarques.",process_eyebrow:"PARCOURS DE COOPÉRATION B2B",process_h2:"Un parcours structuré pour acheter au Japon",cc_title:"Besoin de documents CE, ASTM ou JIS pour votre marché ?",cc_desc:"Nous comparons les documents du produit aux exigences de destination pour aider votre consultant local.",cc_btn:"Envoyer une spécification",f_h2:"Démarrer votre demande de conteneur",f_p:"Contactez notre bureau export de Tokyo et envoyez votre spécification pour lancer la vérification et le devis."}
   };
   Object.keys(commonLocalized).forEach(lang => Object.assign(i18nTokens[lang], commonLocalized[lang]));
+  Object.assign(i18nTokens.en, {why_eyebrow:"JAPANESE QUALITY CONTROL",why_h2:"Japanese Precision, Documented for Export.",why_p:"Quality is built through disciplined detail: receiving records, specification matching and pre-loading checks. The exact acceptance criteria are confirmed against each product and the agreed order scope."});
+  Object.assign(i18nTokens.zh, {why_eyebrow:"日本式品质管理",why_h2:"日本精度，以出口记录落实。",why_p:"品质来自对细节的纪律：收货记录、规格匹配与装柜前检查。具体验收标准按每项产品及双方确认的订单范围执行。"});
+  Object.assign(i18nTokens.hi, {why_eyebrow:"जापानी गुणवत्ता नियंत्रण",why_h2:"जापानी सटीकता, निर्यात के लिए दस्तावेज़ीकृत।",why_p:"गुणवत्ता अनुशासित विवरण से बनती है: प्राप्ति रिकॉर्ड, विनिर्देश मिलान और लोडिंग-पूर्व जाँच। स्वीकृति मानदंड उत्पाद और सहमत ऑर्डर दायरे के अनुसार तय होते हैं।"});
+  Object.assign(i18nTokens.es, {why_eyebrow:"CONTROL DE CALIDAD JAPONÉS",why_h2:"Precisión japonesa, documentada para exportación.",why_p:"La calidad nace del detalle disciplinado: registros de recepción, verificación de especificaciones y controles previos a la carga. Los criterios se confirman para cada producto y alcance acordado."});
+  Object.assign(i18nTokens.fr, {why_eyebrow:"CONTRÔLE QUALITÉ JAPONAIS",why_h2:"La précision japonaise, documentée pour l’export.",why_p:"La qualité repose sur une discipline du détail : réception, concordance des spécifications et contrôles avant chargement. Les critères sont confirmés selon chaque produit et le périmètre convenu."});
 
   const brandStoryI18n = {
     en:[
