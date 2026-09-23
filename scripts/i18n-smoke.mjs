@@ -21,6 +21,15 @@ for (const l of nonEnglish) {
   }
 }
 
+// Cloudflare Pages serves products.html at the clean /products URL. Asset URLs
+// must remain rooted there and on every /<locale>/products route.
+for (const path of ['products.html', ...nonEnglish.map(l => `${l}/products.html`)]) {
+  const html = await readFile(path, 'utf8');
+  for (const asset of ['/products-i18n.js', '/products-i18n20.js', '/favicon.svg', '/img/japan-showroom-kitchen-island_s.webp']) {
+    if (!html.includes(`\"${asset}`)) failures.push(`${path} is missing rooted asset ${asset}`);
+  }
+}
+
 if (!products.includes('products-i18n20.js')) failures.push('product finder missing 20-language pack');
 for (const file of ['jpbuildest-i18n20-a.js','jpbuildest-i18n20-b.js','jpbuildest-i18n20-c.js','jpbuildest-i18n20-runtime.js','products-i18n20.js']) {
   try { await access(file); } catch { failures.push(`missing language pack: ${file}`); }
