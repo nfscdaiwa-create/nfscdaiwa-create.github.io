@@ -2486,10 +2486,8 @@
 
   const applyPageContent = (lang) => {
     const c = pageContentI18n[lang];
-    if (!c) {
-      document.querySelectorAll('[data-page-original]').forEach(el => el.textContent = el.getAttribute('data-page-original'));
-      return;
-    }
+    document.querySelectorAll('[data-page-original]').forEach(el => el.textContent = el.getAttribute('data-page-original'));
+    if (!c) return;
     const set = (el, value) => {
       if (!el || value === undefined) return;
       if (!el.hasAttribute('data-page-original')) el.setAttribute('data-page-original', el.textContent);
@@ -2853,6 +2851,10 @@
     wireFormspreeForm("quickRfq", "quickStatus");
   });
 </script>
+<script src="jpbuildest-i18n20-a.js"></script>
+<script src="jpbuildest-i18n20-b.js"></script>
+<script src="jpbuildest-i18n20-c.js"></script>
+<script src="jpbuildest-i18n20-runtime.js"></script>
 
 </body>
 </html>
