@@ -1,0 +1,122 @@
+(function(){
+function add(code,ui,page,seo){
+  i18nTokens[code]={...i18nTokens.en,...ui};
+  pageContentI18n[code]=page;
+  brandStoryI18n[code]=brandStoryI18n.en;
+  window.jpbuildSeo20=window.jpbuildSeo20||{}; window.jpbuildSeo20[code]=seo;
+}
+add('vi',{
+ lbl_language:'Ngôn ngữ',nav_ledger:'Thương hiệu đối tác',nav_catalog:'Sản phẩm',nav_product_finder:'Chọn sản phẩm',nav_catalogues:'Catalogue chính thức',nav_showroom:'Showroom',nav_specguide:'Hướng dẫn thông số',nav_process:'Quy trình xuất khẩu',nav_quality:'Tiêu chuẩn chất lượng',nav_contact:'Liên hệ',nav_brand_stories:'Câu chuyện thương hiệu',
+ ann_badge:'NHÀ PHÂN PHỐI TOÀN CẦU',ann_text:'EST Co., Ltd. là đối tác xuất khẩu tại Tokyo của các thương hiệu vật liệu xây dựng hàng đầu Nhật Bản.',
+ hero_tagline:'CHẤT LƯỢNG NHẬT. VƯƠN RA TOÀN CẦU.',hero_title:'Chất lượng Nhật Bản, được chỉ định cho thị trường toàn cầu.',hero_intro:'Vật liệu Nhật chọn lọc, sourcing nhiều thương hiệu và điều phối xuất khẩu với độ chính xác, khả năng truy xuất và sự cẩn trọng của sản xuất Nhật.',
+ trust_1:'10+ thương hiệu đối tác',trust_2:'Gom hàng FCL / LCL',trust_3:'Kiểm soát sourcing từ Tokyo',trust_4:'Điều phối tài liệu tuân thủ',
+ ledger_eyebrow:'DANH MỤC THƯƠNG HIỆU',ledger_h2:'Mỗi đơn hàng đều có đầy đủ hồ sơ.',ledger_p:'Chúng tôi sourcing từ các nhà sản xuất lớn tại Nhật và gom hàng nhiều thương hiệu theo manifest gốc.',
+ why_eyebrow:'KIỂM SOÁT CHẤT LƯỢNG NHẬT',why_h2:'Độ chính xác Nhật Bản, được ghi nhận cho xuất khẩu.',why_p:'Tiếp nhận, đối chiếu thông số và kiểm tra trước khi xếp hàng được ghi nhận theo từng sản phẩm và phạm vi đơn hàng.',
+ process_eyebrow:'QUY TRÌNH B2B',process_h2:'Lộ trình rõ ràng để sourcing từ Nhật',process_p:'Chúng tôi căn chỉnh tiêu chuẩn điểm đến, thông số, lead time và kế hoạch xếp hàng trước khi xác nhận.',
+ step1_t:'1. Chọn danh mục',step1_d:'Nêu danh mục, thương hiệu và yêu cầu điểm đến.',step2_t:'2. Xác nhận mẫu',step2_d:'Kiểm tra catalogue, màu, mẫu và dữ liệu chính thức.',step3_t:'3. Đối chiếu thông số',step3_d:'Kiểm tra tài liệu, chứng nhận và tiêu chuẩn địa phương.',step4_t:'4. Báo giá số lượng',step4_d:'Xác nhận MOQ, giá, thời gian và kế hoạch container.',step5_t:'5. Gom & xếp hàng',step5_d:'Gom nhiều nhà máy, kiểm tra, pallet và niêm phong.',step6_t:'6. Hỗ trợ',step6_d:'Điều phối chứng từ hải quan và đơn hàng tiếp theo.',
+ f_h2:'Bắt đầu yêu cầu container của bạn',f_p:'Gửi danh sách thông số trực tiếp cho bộ phận xuất khẩu Tokyo.',
+ lbl_download_title:'Thông tin cần để báo giá',lbl_download_desc:'Gửi sản phẩm, điểm đến và số lượng để kiểm tra khả năng xuất khẩu, thời gian và giá.',quote_product:'Mã model, trang chính thức hoặc ảnh chụp',quote_destination:'Quốc gia, cảng và tiêu chuẩn địa phương',quote_volume:'Số lượng, giai đoạn dự án và thời gian',lbl_instant_desk:'Bộ phận sourcing trực tiếp',lbl_download_desc_2:'Liên hệ trực tiếp đội cung ứng quốc tế.',btn_chat_whatsapp:'Chat WhatsApp ↗',btn_copy_email:'Sao chép email kinh doanh ⎘',
+ faq_eyebrow:'FAQ NGƯỜI MUA XUẤT KHẨU',faq_h2:'Câu hỏi trước khi mua hàng từ Nhật',faq_intro:'Thông tin rõ ràng về xuất khẩu, số lượng, thông số, tài liệu và vận chuyển.'
+},{
+ supply:['PHẠM VI CUNG ỨNG','Sáu danh mục, mười nhà sản xuất, một đơn mua hàng.','So sánh hiệu năng, hoàn thiện và ngân sách giữa nhiều nhà sản xuất rồi gom vào một lô hàng.'],
+ counts:['4 nhà sản xuất','5 nhà sản xuất','4 nhà sản xuất','2 nhà sản xuất','2 nhà sản xuất','2 nhà sản xuất'],
+ titles:['Wallcovering & film trang trí','Sàn','Cửa nội thất & lưu trữ','Cửa sổ & cửa ra vào','Bếp, phòng tắm & lavabo','Tấm & hệ trần'],
+ descs:['Vinyl dự án, nonwoven và film trang trí.','Gỗ kỹ thuật/gỗ đặc, LVT, vinyl an toàn và thảm tấm.','Cửa mở/trượt, tủ và hệ lưu trữ.','Hệ nhôm, PVC, hybrid và cửa ra vào.','Bếp hệ thống, unit bath, vanity, toilet và vòi.','Tấm tiêu chuẩn, chống cháy, chống ẩm và tiêu âm.'],
+ choose:'CHỌN TỪ CÁC THƯƠNG HIỆU',quote:'Yêu cầu báo giá danh mục này',catalogue:['CATALOGUE CHÍNH THỨC','Chọn từ nguồn, đặt hàng qua một đầu mối.','Chọn model và màu trên website hãng rồi gửi mã để nhận báo giá gộp.','CATALOGUE CHÍNH THỨC'],
+ facilities:['SHOWROOM & LOGISTICS · TOKYO, NHẬT BẢN','Hàng thật, showroom thật, xuất từ Nhật.','Showroom Tokyo dùng để chọn sản phẩm; kho dùng để gom và xếp container.','THAM QUAN SHOWROOM','Showroom Tokyo — chọn trước khi xuất','Có LIXIL, Panasonic, TOCLAS và thư viện mẫu Sangetsu, Lilycolor, Sincol.'],
+ specGuide:['LƯU Ý THÔNG SỐ CHO NGƯỜI MUA QUỐC TẾ','Điều gì khác khi chọn vật liệu Nhật?','Sản phẩm Nhật theo tiêu chuẩn và kích thước Nhật; cần kiểm tra các khác biệt quan trọng trước đơn đầu tiên.'],
+ contactLabels:['Công ty','Trụ sở','Điện thoại','Fax','Website','Đại diện','Điểm xuất khẩu'],quoteLabels:['01 · SẢN PHẨM','02 · ĐIỂM ĐẾN','03 · SỐ LƯỢNG'],footerLinks:['Thương hiệu','Catalogue','Quy trình','Liên hệ'],footerText:'EST Co., Ltd. là nhà phân phối và đối tác cung ứng toàn cầu của các nhà sản xuất vật liệu xây dựng Nhật Bản.',location:'Tokyo, Nhật Bản',lbl_language:'Ngôn ngữ'
+},['Nhà phân phối & xuất khẩu vật liệu xây dựng Nhật Bản | EST','Vật liệu xây dựng Nhật, gom hàng FCL/LCL nhiều thương hiệu và vận chuyển toàn cầu từ Nhật.']);
+
+add('te',{
+ lbl_language:'భాష',nav_ledger:'బ్రాండ్ భాగస్వాములు',nav_catalog:'ఉత్పత్తులు',nav_product_finder:'ఉత్పత్తి ఎంపిక',nav_catalogues:'అధికారిక క్యాటలాగ్‌లు',nav_showroom:'షోరూమ్',nav_specguide:'స్పెక్ గైడ్',nav_process:'ఎగుమతి ప్రక్రియ',nav_quality:'నాణ్యత ప్రమాణం',nav_contact:'సంప్రదింపు',nav_brand_stories:'బ్రాండ్ కథలు',
+ ann_badge:'గ్లోబల్ డిస్ట్రిబ్యూటర్',ann_text:'EST Co., Ltd. టోక్యో కేంద్రంగా జపాన్ ప్రముఖ నిర్మాణ బ్రాండ్ల ఎగుమతి భాగస్వామి.',
+ hero_tagline:'జపాన్ నాణ్యత. ప్రపంచ వ్యాప్తి.',hero_title:'జపాన్ నాణ్యత, ప్రపంచ అవసరాలకు సిద్ధం.',hero_intro:'ఎంపిక చేసిన జపాన్ నిర్మాణ పదార్థాలు, మల్టీ-బ్రాండ్ సోర్సింగ్ మరియు ఎగుమతి సమన్వయం—జపాన్ తయారీ ఖచ్చితత్వం, ట్రేసబిలిటీతో.',
+ trust_1:'10+ భాగస్వామి బ్రాండ్లు',trust_2:'FCL / LCL కన్సాలిడేషన్',trust_3:'టోక్యో సోర్సింగ్ నియంత్రణ',trust_4:'కంప్లయన్స్ పత్రాల సమన్వయం',
+ ledger_eyebrow:'బ్రాండ్ రికార్డ్',ledger_h2:'ప్రతి ఆర్డర్‌కు పూర్తి పత్రాలు.',ledger_p:'జపాన్ ప్రముఖ తయారీదారుల నుంచి సోర్స్ చేసి అసలు బ్రాండ్ మానిఫెస్ట్‌తో మల్టీ-బ్రాండ్ షిప్‌మెంట్‌లను నిర్వహిస్తాము.',
+ why_eyebrow:'జపాన్ నాణ్యత నియంత్రణ',why_h2:'ఎగుమతికి పత్రబద్ధమైన జపాన్ ఖచ్చితత్వం.',why_p:'రిసీవింగ్, స్పెసిఫికేషన్ మ్యాచింగ్, ప్రీ-లోడింగ్ తనిఖీలు ప్రతి ఉత్పత్తి మరియు ఒప్పుకున్న ఆర్డర్ స్కోప్ ప్రకారం నమోదు చేస్తాము.',
+ process_eyebrow:'B2B ప్రక్రియ',process_h2:'జపాన్ సోర్సింగ్‌కు నిర్మిత ప్రక్రియ',process_p:'గమ్యస్థాన ప్రమాణం, స్పెసిఫికేషన్, లీడ్ టైమ్, లోడింగ్ ప్లాన్‌ను ముందుగానే సరిపోల్చుతాము.',
+ step1_t:'1. వర్గాన్ని ఎంచుకోండి',step1_d:'వర్గం, బ్రాండ్లు, గమ్య అవసరాలు చెప్పండి.',step2_t:'2. నమూనాలు నిర్ధారించండి',step2_d:'క్యాటలాగ్, రంగు, నమూనాలు, అధికారిక డేటా చూడండి.',step3_t:'3. స్పెసిఫికేషన్ సరిపోల్చండి',step3_d:'స్పెక్స్, సర్టిఫికేట్లు, స్థానిక కోడ్ చెక్ చేయండి.',step4_t:'4. పరిమాణ కోట్',step4_d:'MOQ, ధర, సమయం, కంటైనర్ ప్లాన్ నిర్ధారించండి.',step5_t:'5. కన్సాలిడేట్ & లోడ్',step5_d:'పలు ఫ్యాక్టరీల సరుకును తనిఖీ చేసి ప్యాలెట్ చేసి సీల్ చేస్తాము.',step6_t:'6. మద్దతు',step6_d:'కస్టమ్స్ పత్రాలు మరియు రీఆర్డర్లు సమన్వయం చేస్తాము.',
+ f_h2:'మీ హోల్‌సేల్ కంటైనర్ అభ్యర్థన ప్రారంభించండి',f_p:'స్పెసిఫికేషన్ జాబితాను నేరుగా టోక్యో ఎగుమతి డెస్క్‌కు పంపండి.',
+ lbl_download_title:'కోట్‌కు అవసరమైన సమాచారం',lbl_download_desc:'ఉత్పత్తి, గమ్యం, పరిమాణం పంపండి; ఎగుమతి, సమయం, ధర చెక్ చేస్తాము.',quote_product:'మోడల్ కోడ్, అధికారిక పేజీ లేదా స్క్రీన్‌షాట్',quote_destination:'దేశం, పోర్ట్ మరియు స్థానిక ప్రమాణం',quote_volume:'పరిమాణం, ప్రాజెక్ట్ దశ, సమయం',lbl_instant_desk:'డైరెక్ట్ సోర్సింగ్ డెస్క్',lbl_download_desc_2:'అంతర్జాతీయ సరఫరా బృందాన్ని నేరుగా సంప్రదించండి.',btn_chat_whatsapp:'WhatsApp చాట్ ↗',btn_copy_email:'బిజినెస్ ఇమెయిల్ కాపీ ⎘',
+ faq_eyebrow:'ఎగుమతి కొనుగోలుదారుల FAQ',faq_h2:'జపాన్ నుంచి కొనుగోలు ముందు సాధారణ ప్రశ్నలు',faq_intro:'ఎగుమతి, పరిమాణం, స్పెక్స్, పత్రాలు, షిప్పింగ్‌పై స్పష్టమైన సమాధానాలు.'
+},{
+ supply:['సరఫరా పరిధి','ఆరు వర్గాలు, పది తయారీదారులు, ఒక పర్చేజ్ ఆర్డర్.','పర్ఫార్మెన్స్, ఫినిష్, బడ్జెట్‌ను తయారీదారుల మధ్య పోల్చి ఒక షిప్‌మెంట్‌లో సమీకరిస్తాము.'],
+ counts:['4 తయారీదారులు','5 తయారీదారులు','4 తయారీదారులు','2 తయారీదారులు','2 తయారీదారులు','2 తయారీదారులు'],
+ titles:['వాల్‌కవరింగ్ & డెకరేటివ్ ఫిల్మ్','ఫ్లోరింగ్','ఇంటీరియర్ డోర్లు & స్టోరేజ్','విండోలు & ఎంట్రీ డోర్లు','కిచెన్, బాత్ & వాష్‌రూమ్','బోర్డులు & సీలింగ్ సిస్టమ్స్'],
+ descs:['ప్రాజెక్ట్ వినైల్, నాన్‌వోవెన్, డెకరేటివ్ ఫిల్మ్.','ఇంజినీర్డ్/సాలిడ్ వుడ్, LVT, సేఫ్టీ వినైల్, కార్పెట్ టైల్.','హింగ్డ్/స్లైడింగ్ డోర్లు, క్లోజెట్లు, స్టోరేజ్.','అల్యూమినియం, PVC, హైబ్రిడ్ విండోలు మరియు ఎంట్రీ డోర్లు.','సిస్టమ్ కిచెన్, యూనిట్ బాత్, వానిటీ, టాయిలెట్, ట్యాప్‌వేర్.','స్టాండర్డ్, ఫైర్, మాయిశ్చర్, అకౌస్టిక్ బోర్డులు.'],
+ choose:'ఈ బ్రాండ్ల నుంచి ఎంచుకోండి',quote:'ఈ వర్గానికి కోట్ కోరండి',catalogue:['అధికారిక తయారీదారు క్యాటలాగ్‌లు','మూలం నుంచి ఎంచుకుని ఒక డెస్క్ ద్వారా ఆర్డర్ చేయండి.','తయారీదారు సైట్‌లో మోడల్/రంగు ఎంచుకుని కోడ్ పంపండి.','అధికారిక క్యాటలాగ్'],
+ facilities:['షోరూమ్ & లాజిస్టిక్స్ · టోక్యో, జపాన్','నిజమైన స్టాక్, నిజమైన షోరూమ్, జపాన్ నుంచి షిప్పింగ్.','టోక్యో షోరూమ్ ఎంపికకు; గోదాం కన్సాలిడేషన్ మరియు లోడింగ్‌కు.','షోరూమ్ టూర్','టోక్యో షోరూమ్ — షిప్పింగ్‌కు ముందు ఎంపిక','LIXIL, Panasonic, TOCLAS మరియు Sangetsu, Lilycolor, Sincol నమూనాలు అందుబాటులో ఉన్నాయి.'],
+ specGuide:['అంతర్జాతీయ కొనుగోలుదారుల స్పెక్ నోట్స్','జపాన్ మెటీరియల్స్ ఎంచుకున్నప్పుడు ఏమి మారుతుంది?','జపాన్ ఉత్పత్తులు జపాన్ ప్రమాణాలు, కొలతలపై ఆధారపడతాయి; మొదటి ఆర్డర్ ముందు ముఖ్య తేడాలు చెక్ చేయండి.'],
+ contactLabels:['కంపెనీ','హెడ్ ఆఫీస్','ఫోన్','ఫ్యాక్స్','వెబ్‌సైట్','ప్రతినిధి','ఎగుమతి హబ్‌లు'],quoteLabels:['01 · ఉత్పత్తి','02 · గమ్యం','03 · పరిమాణం'],footerLinks:['బ్రాండ్లు','క్యాటలాగ్','ప్రక్రియ','సంప్రదింపు'],footerText:'EST Co., Ltd. జపాన్ నిర్మాణ పదార్థాల తయారీదారుల డిస్ట్రిబ్యూటర్ మరియు గ్లోబల్ సరఫరా భాగస్వామి.',location:'టోక్యో, జపాన్',lbl_language:'భాష'
+},['జపాన్ నిర్మాణ పదార్థాల డిస్ట్రిబ్యూటర్ & ఎగుమతిదారు | EST','జపాన్ నిర్మాణ పదార్థాలు, మల్టీ-బ్రాండ్ FCL/LCL కన్సాలిడేషన్ మరియు ప్రపంచవ్యాప్త షిప్పింగ్.']);
+
+add('sw',{
+ lbl_language:'Lugha',nav_ledger:'Washirika wa chapa',nav_catalog:'Bidhaa',nav_product_finder:'Kiteuzi cha bidhaa',nav_catalogues:'Katalogi rasmi',nav_showroom:'Showroom',nav_specguide:'Mwongozo wa vipimo',nav_process:'Mchakato wa usafirishaji',nav_quality:'Kiwango cha ubora',nav_contact:'Mawasiliano',nav_brand_stories:'Hadithi za chapa',
+ ann_badge:'MSAMBAZAJI WA KIMATAIFA',ann_text:'EST Co., Ltd. ni mshirika wa usafirishaji wa Tokyo kwa chapa kuu za ujenzi za Japani.',
+ hero_tagline:'UBORA WA JAPANI. UFIKIAJI WA DUNIA.',hero_title:'Ubora wa Japani, umeandaliwa kwa soko la dunia.',hero_intro:'Vifaa vya Japani vilivyochaguliwa, sourcing ya chapa nyingi na uratibu wa usafirishaji kwa usahihi na ufuatiliaji wa utengenezaji wa Japani.',
+ trust_1:'Chapa 10+ washirika',trust_2:'Ujumuishaji FCL / LCL',trust_3:'Udhibiti wa sourcing Tokyo',trust_4:'Uratibu wa nyaraka',
+ ledger_eyebrow:'REJESTA YA CHAPA',ledger_h2:'Kila oda ina nyaraka kamili.',ledger_p:'Tunasource kutoka kwa wazalishaji wakuu wa Japani na kuunganisha mizigo ya chapa nyingi chini ya manifest ya asili.',
+ why_eyebrow:'UDHIBITI WA UBORA WA JAPANI',why_h2:'Usahihi wa Japani, umeandikwa kwa ajili ya usafirishaji.',why_p:'Ukaguzi wa kupokea, kulinganisha vipimo na ukaguzi kabla ya kupakia huandikwa kulingana na bidhaa na oda.',
+ process_eyebrow:'MCHAKATO WA B2B',process_h2:'Njia iliyopangwa ya sourcing kutoka Japani',process_p:'Tunaoanisha kiwango cha soko, vipimo, muda na mpango wa upakiaji kabla ya kuthibitisha oda.',
+ step1_t:'1. Chagua kategoria',step1_d:'Taja kategoria, chapa na mahitaji ya mwisho.',step2_t:'2. Thibitisha sampuli',step2_d:'Kagua katalogi, rangi, sampuli na data rasmi.',step3_t:'3. Linganisha vipimo',step3_d:'Kagua specs, vyeti na kanuni za eneo.',step4_t:'4. Pata bei ya kiasi',step4_d:'Thibitisha MOQ, bei, muda na mpango wa kontena.',step5_t:'5. Unganisha & pakia',step5_d:'Tunaunganisha, kukagua, kupallet na kufunga kontena.',step6_t:'6. Msaada',step6_d:'Tunarati nyaraka za forodha na oda zinazofuata.',
+ f_h2:'Anza ombi lako la kontena',f_p:'Tuma orodha ya vipimo moja kwa moja kwa dawati la Tokyo.',
+ lbl_download_title:'Tunachohitaji kwa bei',lbl_download_desc:'Tuma bidhaa, mwisho na kiasi; tutakagua usafirishaji, muda na bei.',quote_product:'Msimbo, ukurasa rasmi au screenshot',quote_destination:'Nchi, bandari na kiwango cha eneo',quote_volume:'Kiasi, hatua ya mradi na muda',lbl_instant_desk:'Dawati la sourcing moja kwa moja',lbl_download_desc_2:'Wasiliana moja kwa moja na timu yetu ya kimataifa.',btn_chat_whatsapp:'WhatsApp ↗',btn_copy_email:'Nakili barua pepe ⎘',
+ faq_eyebrow:'FAQ YA MNUNUZI',faq_h2:'Maswali kabla ya sourcing kutoka Japani',faq_intro:'Majibu kuhusu usafirishaji, kiasi, vipimo, nyaraka na logistics.'
+},{
+ supply:['WIGO WA UGAVI','Kategoria sita, wazalishaji kumi, oda moja.','Tunaliganisha performance, finish na bajeti kati ya wazalishaji kisha kuunganisha katika mzigo mmoja.'],
+ counts:['Wazalishaji 4','Wazalishaji 5','Wazalishaji 4','Wazalishaji 2','Wazalishaji 2','Wazalishaji 2'],
+ titles:['Wallcovering & filamu za mapambo','Sakafu','Milango ya ndani & hifadhi','Madirisha & milango ya kuingia','Jikoni, bafu & washroom','Bodi & mifumo ya dari'],
+ descs:['Vinyl za miradi, nonwoven na filamu za mapambo.','Engineered/solid wood, LVT, safety vinyl na carpet tile.','Milango hinged/sliding, closet na hifadhi.','Aluminium, PVC, hybrid windows na entry doors.','System kitchen, unit bath, vanity, toilet na tapware.','Bodi standard, fire, moisture na acoustic.'],
+ choose:'CHAGUA KUTOKA',quote:'Omba bei ya kategoria hii',catalogue:['KATALOGI RASMI','Chagua kutoka chanzo, oda kupitia dawati moja.','Chagua model na rangi kwenye tovuti ya mtengenezaji, tuma code kwa quote moja.','KATALOGI RASMI'],
+ facilities:['SHOWROOM & LOGISTICS · TOKYO, JAPANI','Stock halisi, showroom halisi, usafirishaji kutoka Japani.','Showroom ya Tokyo kwa uteuzi; ghala kwa consolidation na loading.','ZIARA YA SHOWROOM','Showroom Tokyo — chagua kabla ya kusafirisha','LIXIL, Panasonic, TOCLAS na sampuli za Sangetsu, Lilycolor, Sincol zinapatikana.'],
+ specGuide:['MAELEZO YA VIPIMO KWA WANUNUZI WA KIMATAIFA','Nini hubadilika kwa vifaa vya Japani?','Bidhaa za Japani hufuata viwango na vipimo vya Japani; kagua tofauti muhimu kabla ya oda ya kwanza.'],
+ contactLabels:['Kampuni','Makao makuu','Simu','Faksi','Tovuti','Mwakilishi','Vituo vya export'],quoteLabels:['01 · BIDHAA','02 · MWISHO','03 · KIASI'],footerLinks:['Chapa','Katalogi','Mchakato','Mawasiliano'],footerText:'EST Co., Ltd. ni msambazaji na mshirika wa kimataifa wa wazalishaji wa vifaa vya ujenzi vya Japani.',location:'Tokyo, Japani',lbl_language:'Lugha'
+},['Msambazaji na msafirishaji wa vifaa vya ujenzi vya Japani | EST','Vifaa vya ujenzi vya Japani, consolidation ya FCL/LCL ya chapa nyingi na usafirishaji wa dunia.']);
+
+add('ha',{
+ lbl_language:'Harshe',nav_ledger:'Abokan iri',nav_catalog:'Kayayyaki',nav_product_finder:'Zaɓen kayayyaki',nav_catalogues:'Katalogi na hukuma',nav_showroom:'Showroom',nav_specguide:'Jagorar specs',nav_process:'Tsarin fitarwa',nav_quality:'Matsayin inganci',nav_contact:'Tuntuɓa',nav_brand_stories:'Labarin iri',
+ ann_badge:'MAI RARRABAWA NA DUNIYA',ann_text:'EST Co., Ltd. abokin fitarwa ne daga Tokyo ga manyan brands na gini na Japan.',
+ hero_tagline:'INGANCIN JAPAN. ISAR DUNIYA.',hero_title:'Ingancin Japan, an shirya shi don duniya.',hero_intro:'Zaɓaɓɓun kayan gini na Japan, sourcing na brands da yawa da daidaita fitarwa tare da daidaito da bin diddigin masana’antar Japan.',
+ trust_1:'Brands 10+ abokan hulɗa',trust_2:'FCL / LCL consolidation',trust_3:'Sourcing daga Tokyo',trust_4:'Daidaita takardun compliance',
+ ledger_eyebrow:'RAJISTAR BRAND',ledger_h2:'Kowane oda, cikakken takardu.',ledger_p:'Muna sourcing daga manyan masana’antun Japan kuma muna haɗa brands da yawa a ƙarƙashin manifest na asali.',
+ why_eyebrow:'KULA DA INGANCIN JAPAN',why_h2:'Daidaiton Japan, an rubuta don fitarwa.',why_p:'Karɓar kaya, matching specs da dubawa kafin loading ana rubuta su bisa samfur da iyakar oda.',
+ process_eyebrow:'TSARIN B2B',process_h2:'Tsari mai kyau don sourcing daga Japan',process_p:'Muna daidaita standard na wuri, specs, lead time da loading plan kafin oda.',
+ step1_t:'1. Zaɓi rukuni',step1_d:'Faɗi rukuni, brands da bukatun wurin zuwa.',step2_t:'2. Tabbatar da samples',step2_d:'Duba katalogi, launuka, samples da bayanan hukuma.',step3_t:'3. Daidaita specs',step3_d:'Duba spec sheets, certificates da local codes.',step4_t:'4. Farashin volume',step4_d:'Tabbatar da MOQ, farashi, lokaci da container plan.',step5_t:'5. Haɗa & load',step5_d:'Muna haɗa factories, dubawa, pallet da seal.',step6_t:'6. Support',step6_d:'Muna daidaita customs documents da reorders.',
+ f_h2:'Fara buƙatar wholesale container',f_p:'Aiko spec list kai tsaye zuwa Tokyo export desk.',
+ lbl_download_title:'Abin da muke bukata don quote',lbl_download_desc:'Aiko samfur, destination da volume; za mu duba export, lokaci da farashi.',quote_product:'Model code, official page ko screenshot',quote_destination:'Ƙasa, port da local standard',quote_volume:'Quantity, project stage da timing',lbl_instant_desk:'Direct sourcing desk',lbl_download_desc_2:'Tuntuɓi international supply team kai tsaye.',btn_chat_whatsapp:'WhatsApp ↗',btn_copy_email:'Kwafi business email ⎘',
+ faq_eyebrow:'FAQ NA MAI SAYE',faq_h2:'Tambayoyi kafin sourcing daga Japan',faq_intro:'Amsoshi kan export, volume, specs, documents da shipping.'
+},{
+ supply:['ƘARFIN SUPPLY','Rukuni shida, masana’antu goma, purchase order ɗaya.','Muna kwatanta performance, finish da budget tsakanin manufacturers sannan mu haɗa a shipment ɗaya.'],
+ counts:['Manufacturers 4','Manufacturers 5','Manufacturers 4','Manufacturers 2','Manufacturers 2','Manufacturers 2'],
+ titles:['Wallcovering & decorative film','Flooring','Interior doors & storage','Windows & entrance doors','Kitchen, bath & washroom','Boards & ceiling systems'],
+ descs:['Project vinyl, nonwoven da decorative film.','Engineered/solid wood, LVT, safety vinyl da carpet tile.','Hinged/sliding doors, closets da storage.','Aluminium, PVC, hybrid windows da entry doors.','System kitchen, unit bath, vanity, toilet da tapware.','Standard, fire, moisture da acoustic boards.'],
+ choose:'ZAƁI DAGA',quote:'Nemi quote na wannan rukuni',catalogue:['KATALOGI NA HUKUMA','Zaɓi daga source, yi oda daga desk ɗaya.','Zaɓi model da colour a manufacturer site, aiko code don combined quote.','KATALOGI NA HUKUMA'],
+ facilities:['SHOWROOM & LOGISTICS · TOKYO, JAPAN','Real stock, real showroom, shipping daga Japan.','Tokyo showroom don selection; warehouse don consolidation da loading.','SHOWROOM TOUR','Tokyo showroom — zaɓi kafin shipping','LIXIL, Panasonic, TOCLAS da samples na Sangetsu, Lilycolor, Sincol suna nan.'],
+ specGuide:['SPEC NOTES GA INTERNATIONAL BUYERS','Me ya bambanta da kayan Japan?','Kayayyakin Japan suna bin Japan standards da dimensions; duba muhimman bambance-bambance kafin oda na farko.'],
+ contactLabels:['Company','Head office','Phone','Fax','Website','Representative','Export hubs'],quoteLabels:['01 · PRODUCT','02 · DESTINATION','03 · VOLUME'],footerLinks:['Brands','Catalogue','Process','Contact'],footerText:'EST Co., Ltd. distributor ne kuma global supply partner ga Japan building material manufacturers.',location:'Tokyo, Japan',lbl_language:'Harshe'
+},['Mai rarrabawa da fitar da kayan gini na Japan | EST','Kayan gini na Japan, multi-brand FCL/LCL consolidation da worldwide shipping daga Japan.']);
+
+add('tr',{
+ lbl_language:'Dil',nav_ledger:'Marka ortakları',nav_catalog:'Ürünler',nav_product_finder:'Ürün seçici',nav_catalogues:'Resmi kataloglar',nav_showroom:'Showroom',nav_specguide:'Teknik rehber',nav_process:'İhracat süreci',nav_quality:'Kalite standardı',nav_contact:'İletişim',nav_brand_stories:'Marka hikâyeleri',
+ ann_badge:'KÜRESEL DİSTRİBÜTÖR',ann_text:'EST Co., Ltd., Japonya’nın önde gelen yapı markaları için Tokyo merkezli ihracat ortağıdır.',
+ hero_tagline:'JAPON KALİTESİ. KÜRESEL ERİŞİM.',hero_title:'Japon kalitesi, dünya için şartlandırıldı.',hero_intro:'Seçilmiş Japon yapı malzemeleri, çok markalı sourcing ve ihracat koordinasyonu; Japon üretiminin hassasiyet ve izlenebilirliğiyle.',
+ trust_1:'10+ partner marka',trust_2:'FCL / LCL konsolidasyon',trust_3:'Tokyo sourcing kontrolü',trust_4:'Uygunluk dokümanı koordinasyonu',
+ ledger_eyebrow:'MARKA KAYDI',ledger_h2:'Her sipariş tamamen belgeli.',ledger_p:'Japonya’nın önde gelen üreticilerinden tedarik eder, çok markalı yükleri orijinal marka manifestiyle birleştiririz.',
+ why_eyebrow:'JAPON KALİTE KONTROLÜ',why_h2:'Japon hassasiyeti, ihracat için belgeli.',why_p:'Mal kabul, spesifikasyon eşleştirme ve yükleme öncesi kontroller ürün ve sipariş kapsamına göre kayıt altına alınır.',
+ process_eyebrow:'B2B SÜRECİ',process_h2:'Japonya’dan tedarik için yapılandırılmış yol',process_p:'Hedef pazar standardı, spesifikasyon, termin ve yükleme planını siparişten önce hizalarız.',
+ step1_t:'1. Kategori seç',step1_d:'Kategori, marka ve hedef gereksinimlerini paylaşın.',step2_t:'2. Numune onayı',step2_d:'Katalog, renk, numune ve resmi verileri kontrol edin.',step3_t:'3. Spesifikasyon eşleştirme',step3_d:'Teknik föy, sertifika ve yerel kodları doğrulayın.',step4_t:'4. Hacim teklifi',step4_d:'MOQ, fiyat, termin ve konteyner planını onaylayın.',step5_t:'5. Konsolidasyon & yükleme',step5_d:'Fabrikaları birleştirir, kontrol eder, paletler ve mühürleriz.',step6_t:'6. Destek',step6_d:'Gümrük belgeleri ve tekrar siparişleri koordine ederiz.',
+ f_h2:'Toptan konteyner talebinizi başlatın',f_p:'Spesifikasyon listenizi doğrudan Tokyo ihracat masasına gönderin.',
+ lbl_download_title:'Teklif için gerekenler',lbl_download_desc:'Ürün, hedef ve hacmi gönderin; ihracat uygunluğu, termin ve fiyatı kontrol edelim.',quote_product:'Model kodu, resmi sayfa veya ekran görüntüsü',quote_destination:'Ülke, liman ve yerel standart',quote_volume:'Miktar, proje aşaması ve hedef zaman',lbl_instant_desk:'Doğrudan sourcing masası',lbl_download_desc_2:'Uluslararası tedarik ekibimizle doğrudan iletişim kurun.',btn_chat_whatsapp:'WhatsApp ↗',btn_copy_email:'İş e-postasını kopyala ⎘',
+ faq_eyebrow:'İHRACAT ALICISI FAQ',faq_h2:'Japonya’dan tedarik öncesi sorular',faq_intro:'İhracat, hacim, spesifikasyon, belge ve nakliye hakkında net cevaplar.'
+},{
+ supply:['TEDARİK KAPSAMI','Altı kategori, on üretici, tek satın alma siparişi.','Performans, yüzey ve bütçeyi üreticiler arasında karşılaştırıp tek sevkiyatta birleştiririz.'],
+ counts:['4 üretici','5 üretici','4 üretici','2 üretici','2 üretici','2 üretici'],
+ titles:['Duvar kaplaması & dekoratif film','Zemin kaplamaları','İç kapılar & depolama','Pencere & giriş kapıları','Mutfak, banyo & lavabo','Levha & tavan sistemleri'],
+ descs:['Proje vinili, nonwoven ve dekoratif film.','Mühendislik/masif ahşap, LVT, güvenlik vinili ve halı karo.','Menteşeli/kayar kapılar, dolap ve depolama sistemleri.','Alüminyum, PVC, hibrit pencere ve giriş kapıları.','Sistem mutfak, modüler banyo, lavabo, klozet ve armatür.','Standart, yangın, nem ve akustik levhalar.'],
+ choose:'BU MARKALARDAN SEÇ',quote:'Bu kategori için teklif iste',catalogue:['RESMİ ÜRETİCİ KATALOGLARI','Kaynağından seçin, tek masadan sipariş verin.','Üretici sitesinden model ve renk seçip kodları birleşik teklif için gönderin.','RESMİ KATALOG'],
+ facilities:['SHOWROOM & LOJİSTİK · TOKYO, JAPONYA','Gerçek stok, gerçek showroom, Japonya’dan sevkiyat.','Tokyo showroom seçim için; depo konsolidasyon ve yükleme için kullanılır.','SHOWROOM TURU','Tokyo showroom — sevkiyattan önce seçin','LIXIL, Panasonic, TOCLAS ve Sangetsu, Lilycolor, Sincol numune kütüphaneleri mevcuttur.'],
+ specGuide:['ULUSLARARASI ALICILAR İÇİN TEKNİK NOTLAR','Japon malzemelerinde ne değişir?','Japon ürünleri Japon standartları ve ölçülerine göre üretilir; ilk siparişten önce önemli farkları kontrol edin.'],
+ contactLabels:['Şirket','Merkez','Telefon','Faks','Web sitesi','Temsilci','İhracat merkezleri'],quoteLabels:['01 · ÜRÜN','02 · HEDEF','03 · HACİM'],footerLinks:['Markalar','Katalog','Süreç','İletişim'],footerText:'EST Co., Ltd., Japon yapı malzemesi üreticilerinin distribütörü ve küresel tedarik ortağıdır.',location:'Tokyo, Japonya',lbl_language:'Dil'
+},['Japon yapı malzemeleri distribütörü & ihracatçısı | EST','Japon yapı malzemeleri, çok markalı FCL/LCL konsolidasyon ve Japonya’dan dünya çapında sevkiyat.']);
+})();
