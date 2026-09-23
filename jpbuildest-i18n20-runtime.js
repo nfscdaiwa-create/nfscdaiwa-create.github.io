@@ -8,7 +8,7 @@ const applySeo=lang=>{
   document.querySelector('meta[property="og:description"]')?.setAttribute('content',description);
   document.querySelector('meta[name="twitter:title"]')?.setAttribute('content',title);
   document.querySelector('meta[name="twitter:description"]')?.setAttribute('content',description);
-  const canonical=lang==='en'?'https://jpbuildest.com/':\`https://jpbuildest.com/\${lang}/\`;
+  const canonical=lang==='en'?'https://jpbuildest.com/':'https://jpbuildest.com/'+lang+'/';
   document.querySelector('link[rel="canonical"]')?.setAttribute('href',canonical);
   document.querySelector('meta[property="og:url"]')?.setAttribute('content',canonical);
 };
