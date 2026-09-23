@@ -1,0 +1,30 @@
+name: I18n Smoke
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'products.html'
+      - 'products-i18n*.js'
+      - 'jpbuildest-i18n20-*.js'
+      - 'sitemap.xml'
+      - 'scripts/i18n-smoke.mjs'
+      - '.github/workflows/i18n-smoke.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --check products-i18n.js
+      - run: node --check products-i18n20.js
+      - run: node --check jpbuildest-i18n20-a.js
+      - run: node --check jpbuildest-i18n20-b.js
+      - run: node --check jpbuildest-i18n20-c.js
+      - run: node --check jpbuildest-i18n20-runtime.js
+      - run: node scripts/i18n-smoke.mjs
