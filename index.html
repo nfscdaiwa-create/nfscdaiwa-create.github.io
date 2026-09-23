@@ -30,10 +30,25 @@
 <meta name="twitter:image" content="https://jpbuildest.com/img/japan-showroom-tokyo-cover.jpg">
 
 <link rel="alternate" hreflang="en" href="https://jpbuildest.com/">
-<link rel="alternate" hreflang="zh" href="https://jpbuildest.com/?lang=zh">
-<link rel="alternate" hreflang="hi" href="https://jpbuildest.com/?lang=hi">
-<link rel="alternate" hreflang="es" href="https://jpbuildest.com/?lang=es">
-<link rel="alternate" hreflang="fr" href="https://jpbuildest.com/?lang=fr">
+<link rel="alternate" hreflang="zh-CN" href="https://jpbuildest.com/zh/">
+<link rel="alternate" hreflang="hi" href="https://jpbuildest.com/hi/">
+<link rel="alternate" hreflang="es" href="https://jpbuildest.com/es/">
+<link rel="alternate" hreflang="ar" href="https://jpbuildest.com/ar/">
+<link rel="alternate" hreflang="fr" href="https://jpbuildest.com/fr/">
+<link rel="alternate" hreflang="bn" href="https://jpbuildest.com/bn/">
+<link rel="alternate" hreflang="pt" href="https://jpbuildest.com/pt/">
+<link rel="alternate" hreflang="id" href="https://jpbuildest.com/id/">
+<link rel="alternate" hreflang="ur" href="https://jpbuildest.com/ur/">
+<link rel="alternate" hreflang="ru" href="https://jpbuildest.com/ru/">
+<link rel="alternate" hreflang="de" href="https://jpbuildest.com/de/">
+<link rel="alternate" hreflang="ja" href="https://jpbuildest.com/ja/">
+<link rel="alternate" hreflang="pcm" href="https://jpbuildest.com/pcm/">
+<link rel="alternate" hreflang="mr" href="https://jpbuildest.com/mr/">
+<link rel="alternate" hreflang="vi" href="https://jpbuildest.com/vi/">
+<link rel="alternate" hreflang="te" href="https://jpbuildest.com/te/">
+<link rel="alternate" hreflang="sw" href="https://jpbuildest.com/sw/">
+<link rel="alternate" hreflang="ha" href="https://jpbuildest.com/ha/">
+<link rel="alternate" hreflang="tr" href="https://jpbuildest.com/tr/">
 <link rel="alternate" hreflang="x-default" href="https://jpbuildest.com/">
 <link rel="preload" as="image" href="img/japan-showroom-kitchen-island.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1096,11 +1111,26 @@
     <label class="langswitch-wrap" aria-label="Language Switcher">
       <span class="sr-only" data-i18n="lbl_language">Language</span>
       <select class="langswitch-toggle" id="langToggle">
-        <option value="en">EN</option>
-        <option value="zh">中文</option>
+        <option value="en">English</option>
+        <option value="zh">简体中文</option>
         <option value="hi">हिन्दी</option>
-        <option value="es">ES</option>
-        <option value="fr">FR</option>
+        <option value="es">Español</option>
+        <option value="ar">العربية</option>
+        <option value="fr">Français</option>
+        <option value="bn">বাংলা</option>
+        <option value="pt">Português</option>
+        <option value="id">Bahasa Indonesia</option>
+        <option value="ur">اردو</option>
+        <option value="ru">Русский</option>
+        <option value="de">Deutsch</option>
+        <option value="ja">日本語</option>
+        <option value="pcm">Nigerian Pidgin</option>
+        <option value="mr">मराठी</option>
+        <option value="vi">Tiếng Việt</option>
+        <option value="te">తెలుగు</option>
+        <option value="sw">Kiswahili</option>
+        <option value="ha">Hausa</option>
+        <option value="tr">Türkçe</option>
       </select>
     </label>
   </nav>
@@ -2674,10 +2704,11 @@
     
     const triggerLanguage = (targetLang) => {
       currentLang = targetLang;
-      document.documentElement.setAttribute('lang', targetLang);
+      document.documentElement.setAttribute('lang', targetLang === 'zh' ? 'zh-CN' : targetLang);
+      document.documentElement.setAttribute('dir', ['ar','ur'].includes(targetLang) ? 'rtl' : 'ltr');
 
       const seo = seoI18n[targetLang] || seoI18n.en;
-      const canonicalUrl = targetLang === 'en' ? 'https://jpbuildest.com/' : `https://jpbuildest.com/?lang=${targetLang}`;
+      const canonicalUrl = targetLang === 'en' ? 'https://jpbuildest.com/' : `https://jpbuildest.com/${targetLang}/`;
       document.title = seo.title;
       document.querySelector('meta[name="description"]').setAttribute('content', seo.description);
       document.querySelector('link[rel="canonical"]').setAttribute('href', canonicalUrl);
@@ -2723,12 +2754,10 @@
 
       applyPageContent(targetLang);
 
-      const url = new URL(window.location.href);
-      if (targetLang === 'en') url.searchParams.delete('lang');
-      else url.searchParams.set('lang', targetLang);
-      history.replaceState(null, '', url);
-      document.querySelectorAll('a[href^="products.html"]').forEach(link => {
-        link.href = targetLang === 'en' ? 'products.html' : `products.html?lang=${targetLang}`;
+      const nextPath = targetLang === 'en' ? '/' : `/${targetLang}/`;
+      history.replaceState(null, '', nextPath + window.location.hash);
+      document.querySelectorAll('a[href^="products.html"], a[href*="/products.html"]').forEach(link => {
+        link.href = targetLang === 'en' ? '/products.html' : `/${targetLang}/products.html`;
       });
     };
 
@@ -2736,7 +2765,9 @@
     langToggle.addEventListener('change', (e) => triggerLanguage(e.target.value));
 
     // 从可分享的网址读取语言（例如 ?lang=fr）。
-    const requestedLang = new URLSearchParams(window.location.search).get('lang');
+    const pathLang = window.location.pathname.split('/').filter(Boolean)[0];
+    const legacyLang = new URLSearchParams(window.location.search).get('lang');
+    const requestedLang = i18nTokens[pathLang] ? pathLang : legacyLang;
     triggerLanguage(i18nTokens[requestedLang] ? requestedLang : 'en');
 
     // 处理 PDF/Excel 占位符提示，防止空锚点跳转刷新
