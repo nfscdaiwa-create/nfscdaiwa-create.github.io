@@ -56,8 +56,9 @@
   const setProductLanguage = lang => {
     const c = copy[lang] || copy.en;
     const meta = seo[lang] || seo.en;
-    const canonicalUrl = lang === 'en' ? 'https://jpbuildest.com/products.html' : `https://jpbuildest.com/products.html?lang=${lang}`;
-    document.documentElement.lang = lang;
+    const canonicalUrl = lang === 'en' ? 'https://jpbuildest.com/products.html' : `https://jpbuildest.com/${lang}/products.html`;
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
+    document.documentElement.dir = ['ar','ur'].includes(lang) ? 'rtl' : 'ltr';
     document.title = meta.title;
     document.querySelector('meta[name="description"]').setAttribute('content', meta.description);
     document.querySelector('link[rel="canonical"]').setAttribute('href', canonicalUrl);
@@ -76,14 +77,18 @@
     const fine = document.querySelector('.fine .wrap'); if (fine) { if (!fine.dataset.originalText) fine.dataset.originalText = fine.textContent; fine.textContent = c.fine[0] + ' ' + c.fine[1]; }
     [...document.querySelectorAll('footer .wrap span')].forEach((el, i) => setText(el, c.footer[i]));
     document.getElementById('langToggle').value = lang;
-    const url = new URL(window.location.href); if (lang === 'en') url.searchParams.delete('lang'); else url.searchParams.set('lang', lang); history.replaceState(null, '', url);
-    document.querySelectorAll('a[href^="index.html"]').forEach(link => {
-      const target = new URL(link.getAttribute('href'), window.location.href);
-      if (lang === 'en') target.searchParams.delete('lang'); else target.searchParams.set('lang', lang);
-      link.href = target.pathname.split('/').pop() + target.search + target.hash;
+    const nextPath = lang === 'en' ? '/products.html' : `/${lang}/products.html`;
+    history.replaceState(null, '', nextPath + window.location.hash);
+    document.querySelectorAll('a[href^="index.html"], a[href^="/"]').forEach(link => {
+      const raw = link.getAttribute('href') || '';
+      if (raw.startsWith('http') || raw.startsWith('//')) return;
+      const hash = raw.includes('#') ? '#' + raw.split('#')[1] : '';
+      link.href = lang === 'en' ? '/' + hash : `/${lang}/${hash}`;
     });
   };
   document.getElementById('langToggle').addEventListener('change', e => setProductLanguage(e.target.value));
-  const requestedLang = new URLSearchParams(window.location.search).get('lang');
-  setProductLanguage(copy[requestedLang] ? requestedLang : 'en');
+  const pathLang = window.location.pathname.split('/').filter(Boolean)[0];
+  const legacyLang = new URLSearchParams(window.location.search).get('lang');
+  const requestedLang = pathLang && pathLang !== 'products.html' ? pathLang : legacyLang;
+  setProductLanguage(requestedLang || 'en');
 })();
