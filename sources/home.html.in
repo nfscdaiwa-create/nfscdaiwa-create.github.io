@@ -359,6 +359,7 @@
     padding:5px 8px;border-radius:2px;background:rgba(13,28,52,.78);color:#fff;
     font:600 9px/1.2 'IBM Plex Mono',monospace;letter-spacing:.02em;
   }
+  .ccard-img[data-credit]::after{content:attr(data-credit)}
   .hero-photo-rights{bottom:18px;}
   .hero-band > .wrap{position:relative; z-index:2; padding-top:58px; padding-bottom:52px;}
   @media(max-width:991px){
@@ -1350,8 +1351,8 @@
 
     <div class="ccards reveal">
       <article class="ccard" id="cat-wall">
-        <div class="ccard-img">
-          <img src="img/japan-showroom-sample-library_s.webp" alt="Japanese wallcovering sample books from Sangetsu, Lilycolor and Sincol at the EST Tokyo showroom" loading="lazy" width="560" height="380">
+        <div class="ccard-img" data-credit="© Lilycolor">
+          <img src="img/brand-official/lilycolor-wall.jpg" alt="Lilycolor wallcovering in an interior room" loading="lazy" width="800" height="500">
           <span class="ccard-count">4 MANUFACTURERS</span>
         </div>
         <div class="ccard-body">
@@ -1376,8 +1377,8 @@
       </article>
 
       <article class="ccard" id="cat-floor">
-        <div class="ccard-img">
-          <img src="img/japan-showroom-kitchen-wood_s.webp" alt="Japanese engineered wood and vinyl flooring installed in the EST Tokyo showroom" loading="lazy" width="560" height="380">
+        <div class="ccard-img" data-credit="© TOLI">
+          <img src="img/brand-official/toli-flooring.jpg" alt="TOLI flooring in a living room" loading="lazy" width="600" height="600">
           <span class="ccard-count">5 MANUFACTURERS</span>
         </div>
         <div class="ccard-body">
@@ -1403,8 +1404,8 @@
       </article>
 
       <article class="ccard" id="cat-door">
-        <div class="ccard-img">
-          <img src="img/japan-warehouse-panels-upright_s.webp" alt="Japanese interior door panels and storage units stored upright in the EST warehouse" loading="lazy" width="560" height="380">
+        <div class="ccard-img" data-credit="© NODA">
+          <img src="img/brand-official/noda-canaeru.jpg" alt="NODA interior door and storage arrangement" loading="lazy" width="1200" height="675">
           <span class="ccard-count">4 MANUFACTURERS</span>
         </div>
         <div class="ccard-body">
@@ -1430,7 +1431,7 @@
 
       <article class="ccard" id="cat-opening">
         <div class="ccard-img">
-          <img src="img/japan-showroom-kitchen-compact_s.webp" alt="Japanese window and entrance systems on display at the EST Tokyo showroom" loading="lazy" width="560" height="380">
+          <img src="img/japan-showroom-sample-library_s.webp" alt="Japanese material samples at a showroom; window and entrance specifications are linked below" loading="lazy" width="560" height="380">
           <span class="ccard-count">2 MANUFACTURERS</span>
         </div>
         <div class="ccard-body">
@@ -1477,8 +1478,8 @@
       </article>
 
       <article class="ccard" id="cat-board">
-        <div class="ccard-img">
-          <img src="img/japan-warehouse-export-crates_s.webp" alt="Crated Japanese gypsum board and ceiling panels staged for container loading" loading="lazy" width="560" height="380">
+        <div class="ccard-img" data-credit="© Chiyoda Ute">
+          <img src="img/brand-official/chiyoda-board.jpg" alt="Chiyoda Ute gypsum board products" loading="lazy" width="300" height="300">
           <span class="ccard-count">2 MANUFACTURERS</span>
         </div>
         <div class="ccard-body">

@@ -12,15 +12,17 @@ ROOT=Path(__file__).resolve().parent.parent
 import os
 os.chdir(ROOT)
 BASE='https://jpbuildest.com'
-VERSION='20260924-unified1'
+VERSION='20260924-unified2'
 REGISTRY='https://info.gbiz.go.jp/hojin/ichiran?hojinBango=9011801033600'
 NAMES={'en':'English','zh':'简体中文','hi':'हिन्दी','es':'Español','ar':'العربية','fr':'Français','bn':'বাংলা','pt':'Português','id':'Bahasa Indonesia','ur':'اردو','ru':'Русский','de':'Deutsch','ja':'日本語','pcm':'Nigerian Pidgin','mr':'मराठी','vi':'Tiếng Việt','te':'తెలుగు','sw':'Kiswahili','ha':'Hausa','tr':'Türkçe','mn':'Монгол'}
 LOCALES=list(NAMES)
 PAGES=['home','products','company','privacy','brands','media']
 COPY=json.loads(Path('audit/copy.json').read_text())
+MARKETING_COPY=json.loads(Path('audit/marketing-copy.json').read_text())
 MEDIA_COPY=json.loads(Path('audit/media-copy.json').read_text())
 MEDIA_ARCHIVE_COPY=json.loads(Path('audit/media-archive-copy.json').read_text())
 assert set(COPY)==set(LOCALES)
+assert set(MARKETING_COPY)==set(LOCALES)
 Path('sources').mkdir(exist_ok=True)
 for source,dest in [('index.html','home.html.in'),('products.html','products.html.in')]:
  if not Path('sources',dest).exists(): shutil.copyfile(source,Path('sources',dest))
@@ -55,8 +57,8 @@ DATA['page']['mn']={'titles':['Ханын цаас, чимэглэлийн ха�
 'contactLabels':['Компани','Хаяг','Утас','Факс','Вэбсайт','Харилцах хүн','Экспортын төвүүд'],'quoteLabels':['01 · Бүтээгдэхүүн','02 · Хүргэх газар','03 · Тоо хэмжээ'],'location':'Токио, Япон','footerText':'Японы барилгын материалын худалдан авалт, экспортын зохицуулалт.'}
 
 for language in LOCALES:
- DATA['ui'][language]['hero_title']=COPY[language]['heroTitle']
- DATA['ui'][language]['hero_intro']=COPY[language]['heroIntro']
+ DATA['ui'][language]['hero_title']=MARKETING_COPY[language]['heroTitle']
+ DATA['ui'][language]['hero_intro']=MARKETING_COPY[language]['heroIntro']
 
 def prefix(l):return '/' if l=='en' else f'/{l}/'
 def route(l,page='home'):return prefix(l)+(page+'/' if page!='home' else '')
@@ -113,6 +115,7 @@ def common(s,l,page,title,description):
  else:s.body.insert(0,make_header(l))
  if s.footer:s.footer.replace_with(footer(l))
  else:s.body.append(footer(l))
+ s.body.append(frag(f'<aside class="mobile-contact-bar" aria-label="{e(c["quote"])}"><a href="mailto:nana@jpbuildest.com">{e(c["email"])}</a><a class="mobile-quote-button" href="{prefix(l)}#quickRfq">{e(c["quote"])}</a></aside>'))
  # Any external links remain explicit and open without access to the referring window.
  for a in s.select('a[href]'):
   href=a['href']
@@ -173,6 +176,8 @@ def locale_home(l):
  'qc_1':c['guides'][0],'qc_1_val':c['specnote'],'qc_2':u['step2_t'],'qc_2_val':u['step2_d'],'qc_3':c['guides'][6],'qc_3_val':c['guides'][7],'qc_4':u['step5_t'],'qc_4_val':u['step5_d'],
  'faq_q1':c['scope'],'faq_a1':c['companyBody'],'faq_q2':u['step4_t'],'faq_a2':u['step4_d'], 'faq_q3':c['guides'][0],'faq_a3':c['guides'][1], 'faq_q4':c['guides'][4],'faq_a4':c['guides'][5], 'faq_q5':u['step5_t'],'faq_a5':c['cases'][3],
  'btn_copy_email':c['copy']}
+ extra['stories_h2']=MARKETING_COPY[l]['storyTitle']
+ extra['stories_p']=MARKETING_COPY[l]['storyIntro']
  # These five original locales already have specific, complete hero bullet translations.
  if l in ['en','zh','hi','es','fr']:
   for k in ['bullet_1','bullet_2','bullet_3','mono_intro','mono_precision','mono_material','mono_inspection','mono_integrity']:extra.pop(k,None)
@@ -192,6 +197,9 @@ def locale_home(l):
   specs=card.select_one('.ccard-specs');specs.clear();specs.append(frag(f'<p class="specnote">{e(c["specnote"])}</p>'))
   examples=['92 cm · 50 m','303 / 909 / 1818 mm · 0.3–0.55 mm','2000 / 2400 mm','JIS A 4706','1216 / 1616 / 1620 · 2550 / 2700 mm','910 × 1820 mm · 9.5 / 12.5 / 15 / 21 mm']
   specs.append(frag(f'<code class="spec-examples">{examples[i]}</code>'))
+ category_cards=s.select('#catalog-section .ccard')
+ category_nav=frag(f'<nav class="mobile-category-links" aria-label="{e(u["nav_catalog"])}">'+''.join(f'<a href="#{e(card["id"])}">{e(title)}</a>' for card,title in zip(category_cards,titles))+'</nav>').nav
+ s.select_one('#catalog-section .ccards').insert_before(category_nav)
  for node in s.select('.ledger-row .origin'):node.decompose()
  th=s.select_one('[data-i18n="th_origin"]')
  if th:th.decompose()
@@ -284,6 +292,7 @@ def locale_products(l,home):
   group(s,'.hero-note .pill',[u['nav_catalogues'],u['trust_2'],u['trust_3']]);setsel(s,'.section > .wrap > .eyebrow',c['scope']);setsel(s,'.section h2',u['nav_catalog']);setsel(s,'.section-intro',c['intro'])
   for card,i in zip(s.select('.card'),[4,4,1,0,2,5]):setsel(card,'h3',p['titles'][i]);setsel(card,'.body p',p['descs'][i])
   setsel(s,'.callout h3',c['quote']);setsel(s,'.callout p',c['intro']);setsel(s,'.callout a',c['quote']);setsel(s,'.fine .wrap',c['specnote'])
+ setsel(s,'.hero p',MARKETING_COPY[l]['productIntro'])
  cards=s.select('.card');windows=deepcopy(cards[0]);titles=p.get('titles',EN_TITLES);descs=p.get('descs',EN_DESCS)
  setsel(windows,'h3',titles[3]);setsel(windows,'.body p',descs[3]);acts=windows.select_one('.actions');acts.clear();acts.append(frag(f'<a href="https://www.lixil.co.jp/lineup/">LIXIL · {e(c["source"])}</a>'))
  image=windows.select_one('img');source=home.select_one('#cat-window img') or home.select_one('#cat-windows img') or home.select('#catalog-section .ccard img')[3]
