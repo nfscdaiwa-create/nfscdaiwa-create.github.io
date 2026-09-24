@@ -1,0 +1,94 @@
+name: Site Quality and Build
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'audit/release/**'
+      - 'audit/copy.json'
+      - 'audit/site.js'
+      - 'audit/site.css'
+      - 'sources/**'
+      - 'scripts/build-site.py'
+      - 'scripts/export-language-data.mjs'
+      - 'scripts/validate-site.py'
+      - 'scripts/browser-smoke.py'
+      - 'scripts/i18n-smoke.mjs'
+      - '.github/workflows/site-quality.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: est-site-build-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Restore reviewed source inputs
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json, lzma, shutil
+          release = Path('audit/release')
+          if release.exists():
+              parts = sorted(release.glob('*.part'))
+              assert len(parts) == 7, 'Incomplete reviewed source bundle'
+              payload = b''.join(p.read_bytes() for p in parts)
+              assert hashlib.sha256(payload).hexdigest() == '57e2383df878f0c2a96227f30db6f6589713aa27d36587cb7c208727116da22a', 'Reviewed source integrity mismatch'
+              sources = json.loads(lzma.decompress(payload))
+              allowed = {'audit/copy.json', 'audit/site.js', 'audit/site.css', 'audit/README.md', 'scripts/build-site.py', 'scripts/export-language-data.mjs', 'scripts/validate-site.py', 'scripts/browser-smoke.py', 'scripts/i18n-smoke.mjs'}
+              assert set(sources) == allowed, 'Unexpected source paths'
+              for name, text in sources.items():
+                  assert isinstance(text, str)
+                  path = Path(name)
+                  path.parent.mkdir(parents=True, exist_ok=True)
+                  path.write_text(text, encoding='utf-8')
+              shutil.rmtree(release)
+          PY
+      - name: Install pinned build and test dependencies
+        run: python -m pip install beautifulsoup4==4.14.3 Pillow==12.3.0 playwright==1.57.0
+      - name: Build localized static pages
+        run: python scripts/build-site.py
+      - name: Validate every primary route and local asset
+        run: |
+          python scripts/validate-site.py
+          node --check audit/site.js
+          node scripts/i18n-smoke.mjs
+      - name: Install Chromium and WebKit
+        run: python -m playwright install --with-deps chromium webkit
+      - name: Chromium navigation and inquiry regression
+        run: python scripts/browser-smoke.py --browser chromium
+      - name: WebKit navigation and inquiry regression
+        run: python scripts/browser-smoke.py --browser webkit
+      - name: Keep validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: est-site-quality
+          path: |
+            audit/browser-results-*.json
+            audit/build-manifest.json
+            site-version.json
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Commit tested source and generated pages
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          if ! git diff --cached --quiet; then
+            git commit -m 'Build tested 21-language EST static site and inquiry flow'
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
