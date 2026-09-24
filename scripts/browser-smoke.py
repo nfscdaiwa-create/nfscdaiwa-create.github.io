@@ -58,10 +58,11 @@ with sync_playwright() as p:
   assert not page.evaluate('document.documentElement.scrollWidth > innerWidth+1'),(lang,'mobile overflow')
   menu=page.locator('#mobileMenuToggle');menu.click();assert menu.get_attribute('aria-expanded')=='true';page.keyboard.press('Escape');assert menu.get_attribute('aria-expanded')=='false'
   page.evaluate("() => {window.fetch = async () => new Response('{}', {status: 500});}")
+  page.evaluate("() => {window.__auditEvents=[];let f=document.getElementById('quickRfq');f.addEventListener('submit',()=>window.__auditEvents.push('submit'));f.addEventListener('invalid',e=>window.__auditEvents.push('invalid:'+e.target.name),true);f.querySelector('button[type=submit]').addEventListener('click',()=>window.__auditEvents.push('click'));}")
   fill(page);page.locator('#quickRfq button[type=submit]').click()
   try:page.wait_for_function("document.getElementById('quickStatus').dataset.state === 'error'",timeout=5000)
   except Exception:
-   print('Inquiry failure diagnostic:',lang,page.url,page.evaluate("({state:document.getElementById('quickStatus').dataset.state,valid:document.getElementById('quickRfq').checkValidity(),fields:[...document.getElementById('quickRfq').elements].filter(x=>!x.validity.valid).map(x=>x.name)})"),errors,flush=True)
+   print('Inquiry failure diagnostic:',lang,page.url,page.evaluate("({state:document.getElementById('quickStatus').dataset.state,valid:document.getElementById('quickRfq').checkValidity(),gotcha:document.getElementById('quickRfq').elements.namedItem('_gotcha').value,events:window.__auditEvents,fields:[...document.getElementById('quickRfq').elements].filter(x=>!x.validity.valid).map(x=>x.name)})"),errors,flush=True)
    raise
   assert page.locator('#quickStatus').inner_text()==words['error']
   assert page.locator('[name=name]').input_value()=='Website audit'
