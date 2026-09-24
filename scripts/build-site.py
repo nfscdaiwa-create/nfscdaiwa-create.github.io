@@ -12,7 +12,7 @@ ROOT=Path(__file__).resolve().parent.parent
 import os
 os.chdir(ROOT)
 BASE='https://jpbuildest.com'
-VERSION='20260924-unified2'
+VERSION='20260924-fivepoints3'
 REGISTRY='https://info.gbiz.go.jp/hojin/ichiran?hojinBango=9011801033600'
 NAMES={'en':'English','zh':'简体中文','hi':'हिन्दी','es':'Español','ar':'العربية','fr':'Français','bn':'বাংলা','pt':'Português','id':'Bahasa Indonesia','ur':'اردو','ru':'Русский','de':'Deutsch','ja':'日本語','pcm':'Nigerian Pidgin','mr':'मराठी','vi':'Tiếng Việt','te':'తెలుగు','sw':'Kiswahili','ha':'Hausa','tr':'Türkçe','mn':'Монгол'}
 LOCALES=list(NAMES)
@@ -237,6 +237,15 @@ def locale_home(l):
   if video:video['aria-label']=media[f'media_slide_{i}_title']
   play=slide.select_one('.media-video-play')
   if play:play['aria-label']=media[f'media_slide_{i}_title']
+ # Lead with the supplied showroom photographs; videos follow the photo sequence.
+ carousel=fac.select_one('.media-carousel');controls=carousel.select_one('.media-controls')
+ slides=carousel.select('.media-slide')
+ for index,slide in enumerate([slides[i] for i in [1,2,3,5,0,4]]):
+  controls.insert_before(slide)
+  slide['aria-hidden']='false' if index==0 else 'true'
+  if index==0:slide.attrs.pop('hidden',None)
+  else:slide['hidden']=''
+ carousel.select_one('.media-slide img')['src']='img/japan-showroom-kitchen-island_s.webp'
  # Four concise, model-specific guides replace contradictory equivalence tables.
  guide=s.select_one('#specguide');setsel(guide,'.sec-head .eyebrow',u.get('nav_specguide',c['scope']));setsel(guide,'.sec-head h2',c['specnote']);setsel(guide,'.sec-head p',c['intro'])
  for i,item in enumerate(guide.select('.kb-item')):
@@ -395,7 +404,13 @@ https://jpbuildest.com/privacy/
 21 static language editions, including English, Chinese, Japanese and Mongolian.
 https://jpbuildest.com/sitemap.xml
 ''')
-Path('site-version.json').write_text(json.dumps({'version':VERSION,'releaseId':VERSION,'languages':LOCALES,'primaryPages':len(urls),'translationMethod':'authored dictionaries rendered at build time'},ensure_ascii=False,indent=2)+'\n')
+release_assets=set(build_files)|{'404.html','robots.txt','sitemap.xml','llms.txt','favicon.svg','_headers','.nojekyll'}
+release_assets.update(str(p) for base in ['img','video'] for p in Path(base).rglob('*') if p.is_file())
+release_assets.update(str(p) for p in Path('audit').glob('*') if p.suffix in ['.css','.js'])
+release_hash=hashlib.sha256()
+for name in sorted(release_assets):
+ release_hash.update(name.encode());release_hash.update(b'\0');release_hash.update(Path(name).read_bytes())
+Path('site-version.json').write_text(json.dumps({'version':VERSION,'releaseId':VERSION,'contentHash':release_hash.hexdigest(),'languages':LOCALES,'primaryPages':len(urls),'translationMethod':'authored dictionaries rendered at build time'},ensure_ascii=False,indent=2)+'\n')
 Path('audit/build-manifest.json').write_text(json.dumps({'version':VERSION,'generatedFiles':build_files,'primaryUrls':urls,'optimizedImages':image_stats},indent=2)+'\n')
 print(f'Built {len(urls)} primary pages and {len(build_files)-len(urls)} compatibility aliases across {len(LOCALES)} languages.')
 print('Optimized images:',image_stats)

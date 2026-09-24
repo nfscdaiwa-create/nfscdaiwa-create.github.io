@@ -3,6 +3,7 @@
   if (!carousel) return;
   const slides = [...carousel.querySelectorAll('.media-slide')];
   const counter = carousel.querySelector('.media-count');
+  const controls = carousel.querySelector('.media-controls');
   let active = 0;
 
   function show(next) {
@@ -12,6 +13,7 @@
       slide.hidden = index !== active;
       slide.setAttribute('aria-hidden', String(index !== active));
     });
+    slides[active].querySelector('.media-visual').appendChild(controls);
     counter.textContent = `${String(active + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
   }
 
@@ -36,5 +38,7 @@
     touchX = null;
     if (Math.abs(delta) > 55) show(active + (delta < 0 ? 1 : -1));
   }, {passive:true});
+
+  show(0);
 
 })();

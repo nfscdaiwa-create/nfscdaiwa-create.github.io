@@ -2,18 +2,6 @@ name: Site Quality and Build
 on:
   push:
     branches: [main]
-    paths:
-      - 'audit/release/**'
-      - 'audit/copy.json'
-      - 'audit/site.js'
-      - 'audit/site.css'
-      - 'sources/**'
-      - 'scripts/build-site.py'
-      - 'scripts/export-language-data.mjs'
-      - 'scripts/validate-site.py'
-      - 'scripts/browser-smoke.py'
-      - 'scripts/i18n-smoke.mjs'
-      - '.github/workflows/site-quality.yml'
   workflow_dispatch:
 permissions:
   contents: write

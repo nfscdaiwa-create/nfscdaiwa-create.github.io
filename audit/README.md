@@ -19,7 +19,7 @@ The browser suite intercepts Formspree and never sends an enquiry. It validates
 localized success, rejection and timeout states, retained input, navigation,
 category/brand context, mobile menu, layout and product filtering.
 
-The build writes 105 canonical pages across 21 locales and 84 compatibility
+The build writes 126 canonical pages across 21 locales and 105 compatibility
 aliases. These counts do not prove search indexing. Official registry information
 is not a substitute for product or territory-specific authorization.
 

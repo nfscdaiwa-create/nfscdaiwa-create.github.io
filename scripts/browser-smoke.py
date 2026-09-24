@@ -36,7 +36,7 @@ def load(page,path):
  if args.inline:page.set_content(inline(ROOT/path.lstrip('/')/'index.html'),wait_until='load')
  else:
   response=page.goto(BASE+path,wait_until='load');assert response.status==200,(path,response.status)
- page.wait_for_function("document.getElementById('site-config') !== null")
+ page.wait_for_function("document.documentElement.dataset.siteReady === 'true'")
 def fill(page):
  for name,value in {'name':'Website audit','email':'audit@example.invalid','destination':'Test destination','message':'TEST ONLY — intercepted in browser; never delivered.'}.items():page.locator(f'[name="{name}"]').fill(value)
 with sync_playwright() as p:
@@ -45,6 +45,7 @@ with sync_playwright() as p:
  if args.browser=='chromium':opts['args']=['--no-sandbox']
  browser=getattr(p,args.browser).launch(**opts)
  for lang,words in COPY.items():
+  print(f'Checking {lang} in {args.browser}',flush=True)
   root='/' if lang=='en' else f'/{lang}/'
   page=browser.new_page(viewport={'width':1440,'height':1000});errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
   page.route('https://formspree.io/**',lambda r:r.abort())
@@ -57,7 +58,11 @@ with sync_playwright() as p:
   assert not page.evaluate('document.documentElement.scrollWidth > innerWidth+1'),(lang,'mobile overflow')
   menu=page.locator('#mobileMenuToggle');menu.click();assert menu.get_attribute('aria-expanded')=='true';page.keyboard.press('Escape');assert menu.get_attribute('aria-expanded')=='false'
   page.evaluate("() => {window.fetch = async () => new Response('{}', {status: 500});}")
-  fill(page);page.locator('#quickRfq button[type=submit]').click();page.wait_for_function("document.getElementById('quickStatus').dataset.state === 'error'")
+  fill(page);page.locator('#quickRfq button[type=submit]').click()
+  try:page.wait_for_function("document.getElementById('quickStatus').dataset.state === 'error'",timeout=5000)
+  except Exception:
+   print('Inquiry failure diagnostic:',lang,page.url,page.evaluate("({state:document.getElementById('quickStatus').dataset.state,valid:document.getElementById('quickRfq').checkValidity(),fields:[...document.getElementById('quickRfq').elements].filter(x=>!x.validity.valid).map(x=>x.name)})"),errors,flush=True)
+   raise
   assert page.locator('#quickStatus').inner_text()==words['error']
   assert page.locator('[name=name]').input_value()=='Website audit'
   # Simulate an aborted request without waiting twenty seconds.
