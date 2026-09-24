@@ -1,11 +1,29 @@
 {
-  "version": "20260924-audit1",
-  "languages": ["en", "zh", "hi", "es", "ar", "fr", "bn", "pt", "id", "ur", "ru", "de", "ja", "pcm", "mr", "vi", "te", "sw", "ha", "tr", "mn"],
-  "primaryPages": 105,
-  "sourceCommit": "46dd8d21240f50fdf9c8c16f694ae48e287de5a1",
-  "translationMethod": "authored dictionaries rendered at build time",
-  "repository": "nfscdaiwa-create/nfscdaiwa-create.github.io",
-  "branch": "main",
-  "productionDomain": "jpbuildest.com",
-  "deploymentRequest": "cloudflare-production-20260924"
+  "version": "20260924-unified1",
+  "languages": [
+    "en",
+    "zh",
+    "hi",
+    "es",
+    "ar",
+    "fr",
+    "bn",
+    "pt",
+    "id",
+    "ur",
+    "ru",
+    "de",
+    "ja",
+    "pcm",
+    "mr",
+    "vi",
+    "te",
+    "sw",
+    "ha",
+    "tr",
+    "mn"
+  ],
+  "primaryPages": 126,
+  "sourceCommit": "ec0ea40c9f84f9b6c32ff329c73133e081ee969b",
+  "translationMethod": "authored dictionaries rendered at build time"
 }

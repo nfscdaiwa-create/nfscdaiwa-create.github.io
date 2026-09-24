@@ -12,12 +12,14 @@ ROOT=Path(__file__).resolve().parent.parent
 import os
 os.chdir(ROOT)
 BASE='https://jpbuildest.com'
-VERSION='20260924-audit1'
+VERSION='20260924-unified1'
 REGISTRY='https://info.gbiz.go.jp/hojin/ichiran?hojinBango=9011801033600'
 NAMES={'en':'English','zh':'简体中文','hi':'हिन्दी','es':'Español','ar':'العربية','fr':'Français','bn':'বাংলা','pt':'Português','id':'Bahasa Indonesia','ur':'اردو','ru':'Русский','de':'Deutsch','ja':'日本語','pcm':'Nigerian Pidgin','mr':'मराठी','vi':'Tiếng Việt','te':'తెలుగు','sw':'Kiswahili','ha':'Hausa','tr':'Türkçe','mn':'Монгол'}
 LOCALES=list(NAMES)
-PAGES=['home','products','company','privacy','brands']
+PAGES=['home','products','company','privacy','brands','media']
 COPY=json.loads(Path('audit/copy.json').read_text())
+MEDIA_COPY=json.loads(Path('audit/media-copy.json').read_text())
+MEDIA_ARCHIVE_COPY=json.loads(Path('audit/media-archive-copy.json').read_text())
 assert set(COPY)==set(LOCALES)
 Path('sources').mkdir(exist_ok=True)
 for source,dest in [('index.html','home.html.in'),('products.html','products.html.in')]:
@@ -105,6 +107,8 @@ def common(s,l,page,title,description):
  s.head.append(frag(f'<meta name="description" content="{e(description)}"><link rel="canonical" href="{canonical}"><meta property="og:type" content="website"><meta property="og:site_name" content="EST Co., Ltd."><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(description)}"><meta property="og:url" content="{canonical}"><meta property="og:image" content="{BASE}/img/est-share.webp"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(title)}"><meta name="twitter:description" content="{e(description)}"><meta name="twitter:image" content="{BASE}/img/est-share.webp">'))
  for code in LOCALES:s.head.append(frag(f'<link rel="alternate" hreflang="{"zh-CN" if code=="zh" else code}" href="{BASE}{route(code,page)}">'))
  s.head.append(frag(f'<link rel="alternate" hreflang="x-default" href="{BASE}{route("en",page)}"><link rel="stylesheet" href="/audit/{"products" if page=="products" else "home"}-base.css?v={VERSION}"><link rel="stylesheet" href="/audit/site.css?v={VERSION}">'))
+ if page=='home':s.head.append(frag(f'<link rel="stylesheet" href="/audit/media-home.css?v={VERSION}">'))
+ if page=='media':s.head.append(frag(f'<link rel="stylesheet" href="/audit/media.css?v={VERSION}">'))
  if s.header:s.header.replace_with(make_header(l))
  else:s.body.insert(0,make_header(l))
  if s.footer:s.footer.replace_with(footer(l))
@@ -142,6 +146,7 @@ def common(s,l,page,title,description):
  config={'lang':l,'page':page,'locales':LOCALES,'version':VERSION,'words':{k:c[k] for k in ['sending','success','error','timeout','copied','copyfail','noResults']}}
  cfg=s.new_tag('script',id='site-config',type='application/json');cfg.string=json.dumps(config,ensure_ascii=False).replace('<','\\u003c');s.body.append(cfg)
  script=s.new_tag('script',src='/audit/site.js?v='+VERSION,defer='');s.body.append(script)
+ if page=='home':s.body.append(s.new_tag('script',src='/audit/media-home.js?v='+VERSION,defer=''))
  graph={'@context':'https://schema.org','@graph':[{'@type':'Organization','@id':BASE+'/#organization','name':'EST Co., Ltd.','legalName':'ＥＳＴ株式会社','url':BASE+'/','identifier':'9011801033600','email':'nana@jpbuildest.com','telephone':'+81-90-4739-0207','address':{'@type':'PostalAddress','streetAddress':'4-6-13 Kosengaya-honcho','addressLocality':'Adachi-ku','addressRegion':'Tokyo','postalCode':'121-0832','addressCountry':'JP'},'sameAs':[REGISTRY]},{'@type':'WebPage','@id':canonical+'#webpage','url':canonical,'name':title,'description':description,'inLanguage':s.html['lang'],'about':{'@id':BASE+'/#organization'}}]}
  ld=s.new_tag('script',type='application/ld+json');ld.string=json.dumps(graph,ensure_ascii=False).replace('<','\\u003c');s.head.append(ld)
  # Correct known identity errors in all final pages, without changing real company data.
@@ -203,12 +208,27 @@ def locale_home(l):
  for i,cell in enumerate(s.select('.oc-cell')):
   setsel(cell,'.sc',' · '.join(titles[x] for x in BRAND_CATS[i]));setsel(cell,'.go',c['source'])
  setsel(s,'.oc-note',c['specnote'])
- fac=s.select_one('#facilities');f=p.get('facilities')
- if f:
-  for sel,val in zip(['.sec-head .eyebrow','.sec-head h2','.sec-head p','.fac-hero-cap .eyebrow','.fac-hero-cap h3','.fac-hero-cap p'],f):setsel(fac,sel,val)
- for i,case in enumerate(s.select('.case')):
-  setsel(case,'.case-body .eyebrow',c['cases'][i*2]);setsel(case,'h3',c['cases'][i*2]);setsel(case,'.case-body p',c['cases'][i*2+1])
-  for facts in case.select('.case-facts'):facts.decompose()
+ fac=s.select_one('#facilities');f=p.get('facilities') or ['SHOWROOM & LOGISTICS','Showroom and warehouse','Photos and videos from Japan.','SHOWROOM','Showroom selection','Compare materials and finishes.']
+ media=MEDIA_COPY.get(l) or {
+  'media_eyebrow':f[0],'media_title':f[1],'media_intro':f[2],
+  'media_all':f[0]+' · 22 / 2',
+  **{f'media_slide_{i}_type':f[0] for i in range(1,7)},
+  **{f'media_slide_{i}_title':title for i,title in enumerate([f[4],p.get('titles',EN_TITLES)[4],p.get('titles',EN_TITLES)[4],u['nav_catalogues'],c['cases'][2],c['cases'][2]],1)},
+  **{f'media_slide_{i}_body':body for i,body in enumerate([f[5],c['cases'][1],c['cases'][1],c['cases'][1],c['cases'][3],c['cases'][3]],1)}
+ }
+ for node in fac.select('[data-i18n]'):
+  if node['data-i18n'] in media:txt(node,media[node['data-i18n']])
+ fac.select_one('.media-all')['href']=route(l,'media')
+ fac['aria-label']=media['media_title']
+ fac.select_one('.media-carousel')['aria-label']=media['media_title']
+ for i,slide in enumerate(fac.select('.media-slide'),1):
+  image=slide.select_one('img')
+  if image:
+   image['alt']=media[f'media_slide_{i}_title'];image.attrs.pop('srcset',None);image.attrs.pop('sizes',None)
+  video=slide.select_one('video')
+  if video:video['aria-label']=media[f'media_slide_{i}_title']
+  play=slide.select_one('.media-video-play')
+  if play:play['aria-label']=media[f'media_slide_{i}_title']
  # Four concise, model-specific guides replace contradictory equivalence tables.
  guide=s.select_one('#specguide');setsel(guide,'.sec-head .eyebrow',u.get('nav_specguide',c['scope']));setsel(guide,'.sec-head h2',c['specnote']);setsel(guide,'.sec-head p',c['intro'])
  for i,item in enumerate(guide.select('.kb-item')):
@@ -284,6 +304,27 @@ def locale_products(l,home):
 
 def document(l,page,home):
  c=COPY[l];u=DATA['ui'][l]
+ if page=='media':
+  s=BeautifulSoup(Path('sources/media.html.in').read_text(),'html.parser')
+  for stylesheet in s.select('link[rel="stylesheet"]'):stylesheet.decompose()
+  f=DATA['page'].get(l,{}).get('facilities') or ['SHOWROOM & LOGISTICS','Showroom and warehouse','Photos and videos from Japan.','SHOWROOM','Showroom selection','Compare materials and finishes.']
+  words=MEDIA_ARCHIVE_COPY.get(l) or {'eyebrow':f[0],'title':f[1],'intro':f[2],'videos':f[0],'videosIntro':f[2],
+    'showroomVideo':f[4],'warehouseVideo':c['cases'][2],'photos':f[0],'photosIntro':f[2],
+    'kitchen':DATA['page'].get(l,{}).get('titles',EN_TITLES)[4],
+    'bath':DATA['page'].get(l,{}).get('titles',EN_TITLES)[4],
+    'details':f[4],'warehouse':c['cases'][2]}
+  for node in s.select('[data-t]'):
+   if node['data-t'] in words:txt(node,words[node['data-t']])
+  s.main['id']='main-content'
+  for link in s.select('.photo-link'):
+   link['href']='/'+link['href'].lstrip('/')
+   image=link.img
+   caption=link.get('data-zh' if l=='zh' else 'data-en','') if l in ['en','zh'] else words.get(link.get('data-group'),f[0])
+   image['alt']=caption;txt(link.select_one('.photo-caption'),caption)
+   for attr in ['data-en','data-zh','data-group']:link.attrs.pop(attr,None)
+  dialog=s.select_one('#photoDialog')
+  if dialog:dialog.decompose()
+  return common(s,l,'media',words['title']+' | EST',words['intro'])
  title={'company':c['company'],'privacy':c['privacy'],'brands':u['nav_ledger']}[page]
  s=BeautifulSoup('<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title></title><link rel="icon" href="/favicon.svg"></head><body><main class="site-document" id="main-content"></main></body></html>','html.parser');main=s.main
  main.append(frag(f'<h1>{e(title)}</h1>'))
@@ -308,7 +349,7 @@ def write(s,l,page):
  return path
 for l in LOCALES:
  home=locale_home(l);write(home,l,'home');write(locale_products(l,home),l,'products')
- for page in ['company','privacy','brands']:write(document(l,page,home),l,page)
+ for page in ['company','privacy','brands','media']:write(document(l,page,home),l,page)
 urls=[BASE+route(l,page) for l in LOCALES for page in PAGES]
 Path('sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'<url><loc>{x}</loc><lastmod>2026-09-24</lastmod></url>\n' for x in urls)+'</urlset>\n')
 Path('robots.txt').write_text('User-agent: *\nAllow: /\nDisallow: /sources/\nDisallow: /scripts/\nDisallow: /audit/copy.json\nSitemap: https://jpbuildest.com/sitemap.xml\n')
