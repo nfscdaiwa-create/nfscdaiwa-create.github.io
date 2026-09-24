@@ -1,0 +1,98 @@
+name: Live Domain Verification
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/live-check.yml']
+  workflow_run:
+    workflows: ['pages build and deployment']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: est-live-check
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify production identity and language routes without submitting forms
+        shell: bash
+        run: |
+          python -u - <<'PY'
+          import concurrent.futures, hashlib, json, re, socket, time
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+          from urllib.error import HTTPError
+          from html.parser import HTMLParser
+          expected = json.loads(Path('site-version.json').read_text())
+          version = expected['version']
+          base = 'https://jpbuildest.com'
+          report = {'expectedVersion': version, 'dns': sorted(set(x[4][0] for x in socket.getaddrinfo('jpbuildest.com', 443))), 'routes': []}
+          def get(path):
+              request = Request(base + path + '?est_verify=' + version, headers={'User-Agent': 'EST-Deployment-Verification/1.0', 'Cache-Control': 'no-cache'})
+              with urlopen(request, timeout=20) as response:
+                  return response.status, response.url, dict(response.headers), response.read().decode('utf-8')
+          class Metadata(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.lang = None; self.canonical = None
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  if tag == 'html': self.lang = attrs.get('lang')
+                  if tag == 'link' and attrs.get('rel') == 'canonical': self.canonical = attrs.get('href')
+          for attempt in range(8):
+              try:
+                  status, final, headers, body = get('/site-version.json')
+                  live = json.loads(body)
+                  report['liveVersion'] = live
+                  assert live.get('version') == version, 'The domain still serves a different release'
+                  assert live.get('primaryPages') == expected['primaryPages']
+                  print('Production version matched:', version, 'server:', headers.get('Server'))
+                  break
+              except Exception as error:
+                  report['identityError'] = str(error)
+                  print('Identity check attempt', attempt + 1, str(error), flush=True)
+                  if attempt == 7:
+                      Path('live-check-result.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
+                      raise
+                  time.sleep(10)
+          paths = []
+          for lang in expected['languages']:
+              prefix = '/' if lang == 'en' else '/' + lang + '/'
+              for page in ['', 'products/', 'company/', 'privacy/', 'brands/']:
+                  paths.append((prefix + page, 'zh-CN' if lang == 'zh' else lang))
+          def check(item):
+              path, language = item
+              try:
+                  status, final, headers, body = get(path)
+                  meta = Metadata(); meta.feed(body)
+                  assert status == 200
+                  assert meta.lang == language, 'Wrong HTML language: ' + str(meta.lang)
+                  assert meta.canonical == base + path, 'Wrong canonical: ' + str(meta.canonical)
+                  assert version in body and 'site-config' in body, 'Old or fallback content'
+                  assert len(re.findall(r'<h1(?:\s|>)', body)) == 1, 'Expected one primary heading'
+                  return {'path': path, 'ok': True, 'status': status, 'lang': meta.lang, 'canonical': meta.canonical, 'sha256': hashlib.sha256(body.encode()).hexdigest()}
+              except Exception as error:
+                  return {'path': path, 'ok': False, 'error': str(error)}
+          with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
+              report['routes'] = list(pool.map(check, paths))
+          failed = [x for x in report['routes'] if not x['ok']]
+          report['passed'] = len(paths) - len(failed)
+          report['failed'] = len(failed)
+          report['checkedAtUTC'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+          Path('live-check-result.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
+          print(json.dumps({'version': version, 'passed': report['passed'], 'failed': failed, 'dns': report['dns']}, ensure_ascii=False))
+          assert not failed, 'Deployed route verification failed'
+          PY
+      - name: Retain production verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: est-live-domain-verification
+          path: live-check-result.json
+          if-no-files-found: warn
+          retention-days: 14
