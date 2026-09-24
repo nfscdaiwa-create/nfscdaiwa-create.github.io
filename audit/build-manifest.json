@@ -1,5 +1,5 @@
 {
-  "version": "20260924-unified2",
+  "version": "20260924-fivepoints3",
   "generatedFiles": [
     "index.html",
     "products/index.html",
@@ -363,14 +363,14 @@
   ],
   "optimizedImages": [
     [
-      "img/brand-official/sangetsu-wallcovering.jpg",
-      1164081,
-      106444
-    ],
-    [
       "img/brand-official/nissin-flooring.png",
       4854451,
       143068
+    ],
+    [
+      "img/brand-official/sangetsu-wallcovering.jpg",
+      1164081,
+      106444
     ]
   ]
 }
