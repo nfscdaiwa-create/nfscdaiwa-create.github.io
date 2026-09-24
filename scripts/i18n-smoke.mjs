@@ -1,46 +1,24 @@
-import { readFile, access } from 'node:fs/promises';
-
-const locales = ['en','zh','hi','es','ar','fr','bn','pt','id','ur','ru','de','ja','pcm','mr','vi','te','sw','ha','tr'];
-const nonEnglish = locales.filter(x => x !== 'en');
-const index = await readFile('index.html','utf8');
-const products = await readFile('products.html','utf8');
-
-const failures = [];
-const options = [...index.matchAll(/<option value="([^"]+)">/g)].map(m => m[1]);
-if (new Set(options).size !== 20 || !locales.every(l => options.includes(l))) failures.push('index language selector is not exactly 20 target languages');
-
-for (const l of locales) {
-  const hrefLang = l === 'zh' ? 'zh-CN' : l;
-  const home = l === 'en' ? 'https://jpbuildest.com/' : `https://jpbuildest.com/${l}/`;
-  if (!index.includes(`hreflang="${hrefLang}" href="${home}"`)) failures.push(`missing home hreflang ${l}`);
+// Fast dependency-free companion to validate-site.py and browser-smoke.py.
+import {readFile,access} from 'node:fs/promises';
+const fail=[];
+const data=JSON.parse(await readFile('audit/copy.json','utf8'));
+const manifest=JSON.parse(await readFile('audit/build-manifest.json','utf8'));
+const locales=Object.keys(data);
+if(locales.length!==21 || !locales.includes('mn')) fail.push('Expected original twenty languages plus Mongolian');
+if(manifest.primaryUrls.length!==locales.length*5) fail.push('Primary page count');
+for(const address of manifest.primaryUrls){
+ const path=new URL(address).pathname;
+ const html=await readFile((path.slice(1)||'')+'index.html','utf8');
+ const options=[...html.matchAll(/<option\b[^>]*value="([^"]+)"/g)].map(m=>m[1]);
+ if(!locales.every(l=>options.includes(l))) fail.push(path+': language options');
+ if(!html.includes(`href="${address}" rel="canonical"`)) fail.push(path+': canonical');
+ if(!html.includes('/audit/site.js?v=')) fail.push(path+': shared runtime');
+ if((html.match(/<h1\b/g)||[]).length!==1) fail.push(path+': main heading');
+ for(const m of html.matchAll(/(?:src|poster)="(\/[^"?#]+)[^"]*"/g)){
+  try{await access(decodeURI(m[1].slice(1)));}catch{fail.push(path+': asset '+m[1]);}
+ }
 }
-
-for (const l of nonEnglish) {
-  for (const path of [`${l}/index.html`, `${l}/products.html`]) {
-    try { await access(path); } catch { failures.push(`missing locale route: ${path}`); }
-  }
-}
-
-// Cloudflare Pages serves products.html at the clean /products URL. Asset URLs
-// must remain rooted there and on every /<locale>/products route.
-for (const path of ['products.html', ...nonEnglish.map(l => `${l}/products.html`)]) {
-  const html = await readFile(path, 'utf8');
-  for (const asset of ['/products-i18n.js', '/products-i18n20.js', '/favicon.svg', '/img/japan-showroom-kitchen-island_s.webp']) {
-    if (!html.includes(`\"${asset}`)) failures.push(`${path} is missing rooted asset ${asset}`);
-  }
-}
-
-if (!products.includes('products-i18n20.js')) failures.push('product finder missing 20-language pack');
-for (const file of ['jpbuildest-i18n20-a.js','jpbuildest-i18n20-b.js','jpbuildest-i18n20-c.js','jpbuildest-i18n20-runtime.js','products-i18n20.js']) {
-  try { await access(file); } catch { failures.push(`missing language pack: ${file}`); }
-}
-
-const sitemap = await readFile('sitemap.xml','utf8');
-const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]);
-if (new Set(locs).size !== 40) failures.push(`expected 40 sitemap URLs, got ${new Set(locs).size}`);
-
-if (failures.length) {
-  console.error(failures.join('\n'));
-  process.exit(1);
-}
-console.log('JPBuildEST i18n smoke passed: 20 languages, 40 indexable URLs.');
+const map=await readFile('sitemap.xml','utf8');
+for(const url of manifest.primaryUrls)if(!map.includes('<loc>'+url+'</loc>'))fail.push('Sitemap missing '+url);
+if(fail.length){console.error(fail.join('\n'));process.exit(1);}
+console.log(`PASS: ${locales.length} authored locales, ${manifest.primaryUrls.length} static routes; no inference about actual search indexing.`);

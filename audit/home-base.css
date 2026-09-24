@@ -1,0 +1,970 @@
+
+  :root{
+    --indigo-deep: #0D1C34;      /* 日本高阶建筑靛蓝 */
+    --indigo-medium: #152A4E;
+    --brass-dark: #8A6E45;       /* 建筑级奢华黄铜金 */
+    --brass-light: #F4EFE6;      /* 浅香槟/和纸质感填充色 */
+    --washi: #FAF9F6;            /* 高质感和纸色 */
+    --porcelain: #FFFFFF;
+    --charcoal: #1C1E22;
+    --ash-gray: #646C77;
+    --mist-border: #DFE2E6;
+    --emerald: #2D6A4F;
+    --shu: #A33A2B;              /* 朱色——日本印色的克制强调 */
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--porcelain);color:var(--charcoal);font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+  .disp{font-family:'Plus Jakarta Sans',sans-serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  svg,img{display:block;max-width:100%;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 32px;}
+  @media(max-width:640px){.wrap{padding:0 20px;}}
+  ::selection{background:var(--indigo-deep);color:var(--porcelain);}
+
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--brass-dark);font-weight:700;}
+
+
+  /* ---------- Facilities / Case Study 板块 ---------- */
+  .fac{background:var(--washi);border-top:1px solid var(--mist-border);}
+  .fac-hero{position:relative;border-radius:6px;overflow:hidden;margin-bottom:44px;background:var(--indigo-deep);}
+  .fac-hero video{width:100%;height:clamp(280px,46vw,520px);object-fit:cover;display:block;opacity:.82;}
+  .fac-hero-cap{position:absolute;left:0;bottom:0;right:0;padding:34px 32px 26px;
+    background:linear-gradient(0deg,rgba(13,28,52,.92) 0%,rgba(13,28,52,.55) 55%,transparent 100%);color:#fff;}
+  .fac-hero-cap .eyebrow{color:var(--brass-light);}
+  .fac-hero-cap h3{font-size:clamp(20px,2.6vw,30px);font-weight:800;letter-spacing:-.02em;margin:6px 0 6px;}
+  .fac-hero-cap p{font-size:14px;color:#C6D2E4;max-width:640px;line-height:1.6;}
+  @media(max-width:640px){.fac-hero-cap{padding:22px 18px 18px;}}
+
+  .case-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin-bottom:44px;}
+  @media(max-width:860px){.case-grid{grid-template-columns:1fr;}}
+  .case{background:var(--porcelain);border:1px solid var(--mist-border);border-radius:5px;overflow:hidden;
+    display:flex;flex-direction:column;transition:box-shadow .25s ease,transform .25s ease;}
+  .case:hover{box-shadow:0 14px 40px rgba(13,28,52,.10);transform:translateY(-3px);}
+  .case-media{position:relative;display:grid;grid-template-columns:2fr 1fr;gap:2px;background:var(--mist-border);}
+  .case-media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;}
+  .case-media .stack{display:grid;grid-template-rows:1fr 1fr;gap:2px;}
+  .case-media .stack img{aspect-ratio:auto;}
+  .case-body{padding:26px 26px 28px;}
+  .case-body h3{font-size:19px;font-weight:800;letter-spacing:-.02em;margin:8px 0 10px;color:var(--indigo-deep);}
+  .case-body p{font-size:13.8px;line-height:1.68;color:var(--ash-gray);}
+  .case-facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+  .case-facts span{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.04em;
+    background:var(--brass-light);color:var(--brass-dark);padding:5px 10px;border-radius:3px;}
+
+  .gal{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;}
+  @media(max-width:900px){.gal{grid-template-columns:repeat(3,1fr);}}
+  .gal figure{position:relative;margin:0;border-radius:4px;overflow:hidden;background:var(--mist-border);}
+  .gal img{width:100%;aspect-ratio:1/1;object-fit:cover;transition:transform .4s ease;}
+  .gal figure:hover img{transform:scale(1.07);}
+
+
+  /* ---------- SEO 知识板块 ---------- */
+  .kb{border-top:1px solid var(--mist-border);}
+  .kb-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid var(--mist-border);border-radius:5px;overflow:hidden;}
+  @media(max-width:860px){.kb-grid{grid-template-columns:1fr;}}
+  .kb-item{padding:32px 30px;border-right:1px solid var(--mist-border);border-bottom:1px solid var(--mist-border);background:var(--porcelain);}
+  .kb-item:nth-child(2n){border-right:none;}
+  .kb-item h3{font-size:16.5px;font-weight:800;color:var(--indigo-deep);letter-spacing:-.015em;margin:10px 0 12px;line-height:1.35;}
+  .kb-item p{font-size:13.8px;line-height:1.72;color:var(--ash-gray);}
+  .kb-item p+p{margin-top:10px;}
+  .kb-item table{width:100%;border-collapse:collapse;margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;}
+  .kb-item th{text-align:left;color:var(--brass-dark);font-weight:700;padding:6px 8px 6px 0;border-bottom:1.5px solid var(--mist-border);letter-spacing:.03em;}
+  .kb-item td{padding:7px 8px 7px 0;border-bottom:1px solid var(--mist-border);color:var(--charcoal);}
+
+
+  .catalog-link{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.05em;
+    color:var(--porcelain) !important;background:var(--indigo-deep);
+    padding:7px 13px;border-radius:3px;white-space:nowrap;transition:background .18s ease;}
+  .catalog-link:hover{background:var(--brass-dark);text-decoration:none !important;}
+
+  .oc{background:var(--indigo-deep);color:#fff;border-top:1px solid rgba(255,255,255,.08);}
+  .oc .sec-head h2{color:#fff;} .oc .sec-head p{color:#A9BAD2;} .oc .eyebrow{color:var(--brass-light);}
+  .oc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.12);border-radius:5px;overflow:hidden;}
+  @media(max-width:1000px){.oc-grid{grid-template-columns:repeat(2,1fr);}}
+  .oc-cell{background:var(--indigo-deep);padding:24px 20px 22px;display:flex;flex-direction:column;transition:background .2s ease;}
+  .oc-cell:hover{background:var(--indigo-medium);}
+  .oc-cell .bn{font-size:14px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#fff;}
+  .oc-cell .jn{font-size:11.5px;color:#7D8FA9;margin-top:4px;}
+  .oc-cell .sc{font-size:12px;line-height:1.6;color:#A9BAD2;margin-top:12px;flex:1;}
+  .oc-cell .go{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--brass-light);margin-top:16px;}
+  .oc-cell:hover .go{color:#fff;}
+  .oc-note{margin-top:26px;font-size:12.5px;color:#8FA2BC;line-height:1.7;max-width:820px;}
+
+
+  /* ---------- 品类卡 ---------- */
+  .ccards{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;}
+  @media(max-width:900px){.ccards{grid-template-columns:1fr;}}
+  .ccard{
+    display:flex;flex-direction:column;background:var(--porcelain);
+    border:1px solid var(--mist-border);border-radius:5px;overflow:hidden;
+    transition:box-shadow .25s ease,transform .25s ease,border-color .25s ease;
+  }
+  .ccard:hover{box-shadow:0 16px 46px rgba(13,28,52,.11);transform:translateY(-3px);border-color:#C9D0D9;}
+  .ccard-img{position:relative;overflow:hidden;background:var(--washi);}
+  .ccard-img img{width:100%;height:100%;aspect-ratio:16/9;object-fit:cover;transition:transform .5s ease;}
+  .ccard:hover .ccard-img img{transform:scale(1.045);}
+  .ccard-count{
+    position:absolute;left:14px;bottom:14px;
+    font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.11em;
+    color:var(--porcelain);background:rgba(13,28,52,.86);backdrop-filter:blur(4px);
+    padding:5px 10px;border-radius:3px;
+  }
+  .ccard-body{padding:26px 26px 24px;display:flex;flex-direction:column;flex:1;}
+  .ccard-body h3{font-size:20px;font-weight:800;letter-spacing:-.022em;color:var(--indigo-deep);line-height:1.28;}
+  .ccard-jp{font-size:11.5px;color:var(--ash-gray);margin-top:5px;letter-spacing:.04em;}
+  .ccard-body p{font-size:13.6px;line-height:1.7;color:var(--ash-gray);margin-top:14px;}
+
+  .ccard-specs{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:20px;
+    background:var(--mist-border);border:1px solid var(--mist-border);border-radius:4px;overflow:hidden;
+  }
+  @media(max-width:420px){.ccard-specs{grid-template-columns:1fr;}}
+  .ccard-spec{background:var(--washi);padding:11px 13px;display:flex;flex-direction:column;gap:3px;}
+  .ccard-spec span:first-child{
+    font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--brass-dark);
+  }
+  .ccard-spec span:last-child{font-size:12.5px;font-weight:600;color:var(--charcoal);line-height:1.35;}
+
+  .ccard-blabel{
+    font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.14em;
+    color:var(--ash-gray);margin-top:22px;margin-bottom:9px;
+  }
+  .ccard-brands{display:flex;flex-wrap:wrap;gap:7px;}
+  .ccard-brand{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.04em;
+    color:var(--indigo-deep);background:var(--brass-light);
+    padding:7px 11px;border-radius:3px;white-space:nowrap;
+    transition:background .16s ease,color .16s ease;
+  }
+  .ccard-brand:hover{background:var(--indigo-deep);color:var(--porcelain);}
+
+  .ccard-cta{
+    margin-top:auto;padding-top:20px;
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.05em;
+    color:var(--brass-dark);transition:color .16s ease;
+  }
+  .ccard-cta:hover{color:var(--indigo-deep);}
+
+  /* ---------- 1. 顶端公告栏 ---------- */
+  .top-announcement-bar{
+    background: var(--indigo-deep);
+    color: var(--porcelain);
+    font-size: 11.5px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .ann-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    text-align: center;
+  }
+  .top-announcement-bar .badge {
+    background: var(--brass-dark);
+    color: var(--porcelain);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+  .top-announcement-bar .text {
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .top-announcement-bar .location {
+    font-family: 'IBM Plex Mono', monospace;
+    color: #93A4C0;
+    font-size: 11px;
+    margin-left: 4px;
+  }
+
+  /* ---------- Header / Navigation ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--mist-border);}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:14px 32px;max-width:1240px;margin:0 auto;}
+  .logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1;display:flex;align-items:center;color:var(--indigo-deep);}
+  .logo .dot{color:var(--brass-dark);}
+  .navlinks{display:flex;align-items:center;gap:22px;font-size:12.5px;font-weight:600;white-space:nowrap;}
+  .navlinks a{color:var(--ash-gray);transition:color .2s ease;}
+  .navlinks a:hover{color:var(--indigo-deep);}
+  @media(max-width:1100px){nav{padding-left:20px;padding-right:20px;}.navlinks{gap:14px;font-size:11.5px;}.logo{font-size:28px;}.langswitch-toggle{margin-left:6px;padding-left:10px;padding-right:10px;}}
+  @media(max-width:920px){.navlinks{display:none;}}
+
+  /* 极简语言选择框 (保留框体框架，移除中文，方便日后扩充 JA, DE 等) */
+  .langswitch-toggle{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+    padding: 6px 16px;
+    border: 1.5px solid var(--mist-border);
+    border-radius: 4px;
+    transition: all 0.2s;
+    margin-left: 14px;
+    background: var(--porcelain);
+  }
+  .langswitch-toggle:hover {
+    border-color: var(--indigo-deep);
+  }
+  .langswitch-toggle .lang-option {
+    color: var(--indigo-deep);
+    transition: color 0.15s;
+  }
+  .langswitch-toggle .lang-option.active {
+    color: var(--indigo-deep);
+  }
+  .langswitch-toggle .lang-divider {
+    color: var(--mist-border);
+  }
+  @media(max-width:920px){.langswitch-toggle{margin-left:auto;}}
+  .langswitch-wrap{display:flex;align-items:center;margin-left:10px;}
+  .langswitch-toggle{appearance:none;min-width:72px;color:var(--indigo-deep);background:var(--porcelain);cursor:pointer;}
+  @media(max-width:1300px){nav{padding-left:20px;padding-right:20px;}.navlinks{gap:14px;font-size:11.5px;}}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+  /* ---------- 品牌LOGO自适应排版 ---------- */
+  .brandstrip {
+    background: var(--washi);
+    border-bottom: 1px solid var(--mist-border);
+    padding: 16px 0;
+  }
+  .brandstrip-track {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 6px;
+  }
+  .brand-logo-link {
+    display:flex; align-items:center; justify-content:center;
+    flex:1 1 0; min-width:0; height:34px; padding:0 4px;
+    font-family:'Plus Jakarta Sans',sans-serif;
+    font-size:13px; font-weight:700; letter-spacing:.07em;
+    text-transform:uppercase; white-space:nowrap;
+    color:var(--indigo-deep); opacity:.62;
+    transition:opacity .2s ease,color .2s ease;
+  }
+  .brand-logo-link:hover{opacity:1;color:var(--brass-dark);}
+  .brand-divider{flex:0 0 1px; height:16px; background:var(--mist-border);}
+  @media(max-width:1100px){ .brand-logo-link{font-size:11.5px;letter-spacing:.05em;} }
+  @media(max-width:860px){
+    .brandstrip-track{flex-wrap:wrap; justify-content:center; gap:0 4px;}
+    .brand-logo-link{flex:0 0 auto; height:28px; font-size:11px; padding:0 9px;}
+    .brand-divider{height:12px;}
+  }
+
+  /* ---------- 询价首屏 ---------- */
+  .hero{
+    position:relative;
+    background:var(--porcelain);
+    border-bottom:1px solid var(--mist-border);
+    padding:0 0 48px;
+  }
+  .hero-band{
+    position:relative; overflow:hidden;
+    background:var(--indigo-deep);
+    margin-bottom:34px;
+  }
+  .hero-band .wrap::before{
+    content:'';position:absolute;inset:0;pointer-events:none;opacity:.055;
+    background-image:
+      linear-gradient(30deg,transparent 46%,rgba(255,255,255,.8) 47%,rgba(255,255,255,.8) 48%,transparent 49%),
+      linear-gradient(150deg,transparent 46%,rgba(255,255,255,.8) 47%,rgba(255,255,255,.8) 48%,transparent 49%);
+    background-size:38px 66px;
+  }
+  .hero-band::before{
+    content:''; position:absolute; inset:0; z-index:0;
+    background-image:url('/img/japan-showroom-kitchen-island.webp');
+    background-size:cover; background-position:center 62%;
+    filter:saturate(.72) contrast(1.04);
+  }
+  .hero-band::after{
+    content:''; position:absolute; inset:0; z-index:1;
+    background:
+      linear-gradient(101deg, rgba(9,20,38,.95) 0%, rgba(11,24,44,.90) 34%,
+        rgba(13,28,52,.74) 52%, rgba(13,28,52,.46) 68%, rgba(13,28,52,.34) 100%),
+      linear-gradient(0deg, rgba(9,20,38,.55) 0%, transparent 42%);
+  }
+  .hero-photo-rights,.ccard-img::after,.case-media::after,.gal figure::after{
+    content:'© EST Co., Ltd. · No unauthorized use';
+    position:absolute;right:10px;bottom:10px;z-index:3;
+    padding:5px 8px;border-radius:2px;background:rgba(13,28,52,.78);color:#fff;
+    font:600 9px/1.2 'IBM Plex Mono',monospace;letter-spacing:.02em;
+  }
+  .hero-photo-rights{bottom:18px;}
+  .hero-band > .wrap{position:relative; z-index:2; padding-top:58px; padding-bottom:52px;}
+  @media(max-width:991px){
+    .hero-band::after{background:linear-gradient(180deg,rgba(9,20,38,.94) 0%,rgba(11,24,44,.90) 55%,rgba(13,28,52,.87) 100%);}
+    .hero-band > .wrap{padding-top:42px; padding-bottom:38px;}
+  }
+
+  /* 首屏内文字反白 —— 作用域收窄到 .hero-band */
+  .hero-band .hero-title{color:#fff;}
+  .hero-band .hero-intro{color:#B9C7DC;}
+  .hero-band .eyebrow{color:var(--brass-light);}
+  .hero-band .bullet-item{color:#D6E0EE;}
+  .hero-band .bullet-icon{color:var(--brass-light);}
+  .hero-band .b2b-trust-bar{background:rgba(255,255,255,.14) !important;border-color:rgba(255,255,255,.16) !important;}
+  .hero-band .trust-tile{background:rgba(255,255,255,.045) !important;backdrop-filter:blur(6px);}
+  .hero-band .trust-tile b{color:#fff !important;}
+  .hero-band .trust-tile span{color:#A3B4CC !important;}
+  .hero-band .hero-meta{border-top-color:rgba(255,255,255,.14) !important;}
+  .hero-band .meta-label{color:#7D8FA9;}
+  .hero-band .meta-val{color:#E6ECF5;}
+  .hero-band .meta-val:hover{color:var(--brass-light);}
+  .hero-band .soc-icon{color:rgba(255,255,255,.60);}
+  .hero-band .soc-icon:hover{color:var(--brass-light);}
+  .hero-band .hero-form-box{
+    background:var(--porcelain);
+    border:1px solid rgba(255,255,255,.16);
+    border-top:3px solid var(--brass-dark);
+    box-shadow:0 26px 70px -18px rgba(0,0,0,.62);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 56px;
+    align-items: start;
+    padding-bottom: 32px;
+  }
+  @media(max-width: 991px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+  .hero-left {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-japan-signature{display:flex;align-items:center;gap:12px;margin-bottom:16px;color:#fff;position:relative;z-index:1;}
+  .hero-japan-signature .jp{
+    font-family:'Noto Serif JP',serif;font-size:18px;font-weight:800;letter-spacing:.14em;white-space:nowrap;
+  }
+  .hero-japan-signature .rule{width:40px;height:1px;background:rgba(255,255,255,.42);}
+  .hero-japan-signature .en{
+    font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.18em;color:#C7D2E3;white-space:nowrap;
+  }
+  .hero-japan-signature .seal{
+    width:25px;height:25px;display:grid;place-items:center;border:1px solid rgba(213,96,76,.9);color:#F0A899;
+    font-family:'Noto Serif JP',serif;font-size:12px;line-height:1;transform:rotate(-2deg);margin-left:2px;
+  }
+  .hero-right {
+    position: relative;
+    z-index: 2;
+  }
+  .hero-title {
+    font-family: 'Noto Serif JP','Plus Jakarta Sans',serif;
+    font-size: clamp(32px, 3.8vw, 44px);
+    font-weight: 700;
+    line-height: 1.18;
+    color: var(--indigo-deep);
+    margin: 14px 0 18px;
+    letter-spacing: -0.018em;
+    text-wrap:balance;
+  }
+  .hero-intro {
+    font-size: 15px;
+    color: var(--ash-gray);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .hero-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .bullet-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--charcoal);
+  }
+  .bullet-icon {
+    color: var(--brass-dark);
+    font-weight: 700;
+  }
+
+  /* B2B 核心优势看板 */
+  .b2b-trust-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--mist-border);
+    border: 1px solid var(--mist-border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 16px;
+  }
+  .trust-tile {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .trust-tile b {
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 18px;
+    color: var(--indigo-deep);
+    margin-bottom: 4px;
+  }
+  .trust-tile span {
+    font-size: 11px;
+    color: var(--ash-gray);
+    line-height: 1.3;
+  }
+  @media(max-width: 560px) {
+    .b2b-trust-bar { grid-template-columns: repeat(2, 1fr); }
+    .hero-japan-signature{gap:8px;margin-bottom:13px;}
+    .hero-japan-signature .rule{width:22px;}
+    .hero-japan-signature .en{font-size:8px;letter-spacing:.11em;}
+    .hero-japan-signature .seal{width:22px;height:22px;font-size:11px;}
+  }
+
+  /* ---------- 日本制造品质原则 ---------- */
+  .monozukuri{
+    position:relative;overflow:hidden;background:#F6F2EA;border-top:1px solid #E5DED1;border-bottom:1px solid #E1D8C9;
+  }
+  .monozukuri::before{
+    content:'';position:absolute;inset:0;pointer-events:none;opacity:.24;
+    background-image:radial-gradient(circle at 1px 1px,rgba(138,110,69,.18) 1px,transparent 0);
+    background-size:18px 18px;
+  }
+  .monozukuri-inner{position:relative;padding-top:28px;padding-bottom:30px;}
+  .mono-head{display:grid;grid-template-columns:210px 1fr;gap:34px;align-items:end;margin-bottom:21px;}
+  .mono-title{display:flex;align-items:center;gap:12px;}
+  .mono-title .jp{font-family:'Noto Serif JP',serif;font-size:25px;font-weight:800;letter-spacing:.13em;color:var(--indigo-deep);}
+  .mono-title .seal{width:29px;height:29px;display:grid;place-items:center;background:var(--shu);color:#fff;font-family:'Noto Serif JP',serif;font-size:13px;}
+  .mono-head p{font-size:13px;line-height:1.65;color:#5D626B;max-width:780px;}
+  .mono-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(138,110,69,.28);border-bottom:1px solid rgba(138,110,69,.28);}
+  .mono-item{padding:19px 22px 20px;border-right:1px solid rgba(138,110,69,.24);background:rgba(255,255,255,.38);}
+  .mono-item:last-child{border-right:0;}
+  .mono-item-head{display:flex;align-items:baseline;gap:10px;margin-bottom:7px;}
+  .mono-item .jp{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:800;color:var(--indigo-deep);letter-spacing:.08em;}
+  .mono-item .en{font-family:'IBM Plex Mono',monospace;font-size:8.5px;font-weight:700;letter-spacing:.13em;color:var(--shu);}
+  .mono-item p{font-size:11.5px;line-height:1.58;color:#676A70;}
+  @media(max-width:860px){
+    .mono-head{grid-template-columns:1fr;gap:8px;}
+    .mono-grid{grid-template-columns:repeat(2,1fr);}
+    .mono-item:nth-child(2){border-right:0;}
+    .mono-item:nth-child(-n+2){border-bottom:1px solid rgba(138,110,69,.24);}
+  }
+  @media(max-width:520px){
+    .monozukuri-inner{padding-top:23px;padding-bottom:24px;}
+    .mono-title .jp{font-size:22px;}
+    .mono-item{padding:16px 13px;}
+    .mono-item .jp{font-size:16px;}
+  }
+
+  /* 2x3 结构化数据网格 */
+  .hero-meta {
+    border-top: 1px solid var(--mist-border);
+    padding-top: 24px;
+    margin-top: 24px;
+  }
+  .hero-contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 32px;
+  }
+  @media(max-width: 520px) {
+    .hero-contact-grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .meta-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ash-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .meta-val {
+    font-size: 14px;
+    color: var(--charcoal);
+    font-weight: 600;
+    line-height: 1.4;
+    transition: color 0.15s ease;
+  }
+  a.meta-val:hover {
+    color: var(--brass-dark);
+  }
+  .social-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 2px;
+  }
+  .soc-icon {
+    color: var(--indigo-deep);
+    display: flex;
+    align-items: center;
+    transition: all 0.15s ease;
+  }
+  .soc-icon svg { width: 22px; height: 22px; }
+  .soc-icon:hover { color: var(--brass-dark); transform: translateY(-2px); }
+
+  /* 右侧 B2B 询价箱 */
+  .hero-form-box {
+    background: var(--porcelain);
+    border: 1px solid var(--mist-border);
+    box-shadow: 0 16px 44px rgba(13,28,52,0.08);
+    padding: 30px;
+    border-radius: 6px;
+  }
+  .form-header { margin-bottom: 20px; }
+  .form-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    background: rgba(138,110,69,0.08);
+    color: var(--brass-dark);
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+  .form-header h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 700; color: var(--indigo-deep); }
+  .form-header p { font-size: 12px; color: var(--ash-gray); margin-top: 4px; line-height: 1.4; }
+
+  /* 表单核心布局与输入框样式 */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+    text-align: left;
+  }
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 0px;
+  }
+  @media(max-width: 520px) {
+    .field-row {
+      grid-template-columns: 1fr;
+      gap: 0px;
+    }
+  }
+  .field label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--charcoal);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 13px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--charcoal);
+    background-color: var(--porcelain);
+    border: 1.5px solid var(--mist-border);
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--indigo-deep);
+    box-shadow: 0 0 0 3px rgba(13, 28, 52, 0.08);
+  }
+  .field textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .hero-submitbtn { width: 100%; justify-content: center; padding: 13px; font-size: 14px; margin-top: 8px; }
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 24px;font-size:14px;font-weight:700;
+    border-radius:4px;transition:all .18s cubic-bezier(0.16, 1, 0.3, 1);cursor:pointer;border:1.5px solid transparent;white-space:nowrap;}
+  .btn-primary{background:var(--indigo-deep);color:var(--porcelain);}
+  .btn-primary:hover{background:var(--brass-dark);color:var(--porcelain);}
+  .btn-outline{border-color:var(--indigo-deep);color:var(--indigo-deep);background: transparent;}
+  .btn-outline:hover{background:var(--indigo-deep);color:var(--porcelain);}
+
+  .form-status {
+    display: none;
+    margin-top: 14px;
+    font-size: 12px;
+    line-height: 1.45;
+    transition: all 0.2s ease;
+  }
+
+  /* 桌面端左右两边拉伸贴合及底部完美对齐规则 */
+  @media(min-width: 992px) {
+    .hero-grid {
+      align-items: stretch;
+    }
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .hero-form-box {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-form-box form {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .hero-submitbtn {
+      margin-top: auto !important;
+    }
+  }
+
+  /* ---------- 产品矩阵 ---------- */
+  .tile-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--mist-border);border-top:1px solid var(--mist-border);}
+  @media(max-width:1000px){.tile-grid{grid-template-columns:repeat(4,1fr);}}
+  @media(max-width:640px){.tile-grid{grid-template-columns:repeat(2,1fr);}}
+  .tile{position:relative;aspect-ratio:1/1;display:flex;flex-direction:column;cursor:pointer;overflow:hidden;transition:filter .18s ease;}
+  .tile:hover{filter:brightness(0.94);}
+  .tile.hide{display:none;}
+  .tile-img{flex:1;min-height:0;overflow:hidden;position:relative;}
+  .tile-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+  .tile:hover .tile-img img{transform:scale(1.05);}
+  .tile-cap{background:rgba(255,255,255,.94);padding:10px 12px;position:relative;z-index:2;border-top:1px solid var(--mist-border);}
+  .tile-cap .brandtag{margin-bottom:3px;}
+  .tile-cap b{display:block;font-size:12px;font-weight:700;color:var(--charcoal);}
+
+  .sec{padding:56px 0;}
+  .sec-head{max-width:680px;margin-bottom:24px;}
+  .sec-head .eyebrow{display:block;margin-bottom:10px;}
+  .sec-head h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(28px,3.2vw,38px);font-weight:800;line-height:1.2;color:var(--indigo-deep);}
+  .sec-head p{color:var(--ash-gray);margin-top:10px;font-size:15px;line-height:1.65;max-width:600px;}
+
+  /* ---------- B2B 品牌台账 ---------- */
+  .ledger{border:1px solid var(--mist-border);border-radius:6px;overflow:hidden;}
+  .ledger-head{display:grid;grid-template-columns:1fr 1fr 2.1fr 1.1fr 0.8fr;gap:0;
+    background:var(--indigo-deep);color:var(--porcelain);font-family:'IBM Plex Mono',monospace;font-size:11px;
+    letter-spacing:.05em;text-transform:uppercase;padding:16px 20px;}
+  .ledger-row{display:grid;grid-template-columns:1fr 1fr 2.1fr 1.1fr 0.8fr;gap:0;padding:18px 20px;
+    border-top:1px solid var(--mist-border);align-items:center;transition:background .15s;}
+  .ledger-row:hover{background:#FAF9F6;}
+  .ledger-row .brandname{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:16px;color:var(--indigo-deep);}
+  .ledger-row .brandname a{transition:color .15s;}
+  .ledger-row .brandname a:hover{color:var(--brass-dark);text-decoration:underline;}
+  .ledger-row .jpname{font-size:12px;color:var(--ash-gray);}
+  .ledger-row .cat{font-size:13px;color:var(--charcoal);line-height:1.5;}
+  .ledger-row .origin{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ash-gray);}
+  .ledger-row .compliance{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--brass-dark);font-weight:700;}
+  .status-pill{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 8px;
+    border-radius:999px;background:rgba(45,106,79,.12);color:var(--emerald);font-weight:700;letter-spacing:0.05em;}
+  @media(max-width:900px){
+    .ledger-head{display:none;}
+    .ledger-row{grid-template-columns:1fr;gap:8px;padding:20px;}
+    .ledger-row .cat::before{content:'Export Scope: ';color:var(--ash-gray);font-weight:700;font-size:11px;}
+    .ledger-row .origin::before{content:'HQ: ';color:var(--ash-gray);font-weight:700;font-size:11px;}
+    .ledger-row .compliance::before{content:'Compliance: ';color:var(--ash-gray);font-weight:700;font-size:11px;}
+  }
+
+  /* ---------- 产品目录与过滤 ---------- */
+  .filterbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+  .fbtn{font-family:'IBM Plex Mono',monospace;font-size:12px;padding:10px 16px;border-radius:4px;
+    border:1.5px solid var(--mist-border);background:var(--porcelain);color:var(--ash-gray);cursor:pointer;transition:all .15s ease;font-weight:700;}
+  .fbtn:hover{border-color:var(--charcoal);color:var(--charcoal);}
+  .fbtn.active{background:var(--indigo-deep);color:var(--porcelain);border-color:var(--indigo-deep);}
+
+  .products{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--mist-border);border:1px solid var(--mist-border);margin-bottom:32px;}
+  @media(max-width:1100px){.products{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:820px){.products{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:520px){.products{grid-template-columns:1fr;}}
+  
+  .pcard{background:var(--porcelain);padding:24px 20px;transition:background .15s;display:flex;flex-direction:column;}
+  .pcard:hover{background:#FAF9F6;}
+  .pcard.hide{display:none;}
+  
+  .pcard-img{width:100%;height:156px;overflow:hidden;margin-bottom:16px;border-radius:4px;background:#FAF9F6;border:1px solid var(--mist-border);aspect-ratio:16/10;}
+  .pcard-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+  .pcard:hover .pcard-img img{transform:scale(1.04);}
+
+  .brandtag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--brass-dark);
+    background:rgba(138,110,69,.06);padding:2px 8px;border-radius:3px;margin-bottom:10px;transition:all .15s;font-weight:700;}
+  .brandtag:hover{background:var(--brass-dark);color:var(--porcelain);}
+  .pcard h3{font-size:16px;font-weight:800;margin-bottom:8px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--indigo-deep);line-height:1.3;}
+  .pcard p{font-size:12.5px;color:var(--ash-gray);line-height:1.6;margin-bottom:16px;min-height:56px;}
+  .spec-table{margin-top:auto;}
+  .spec-row{display:flex;justify-content:space-between;font-size:11.5px;padding:8px 0;border-top:1px solid var(--mist-border);color:var(--ash-gray);}
+  .spec-row span:last-child{font-family:'IBM Plex Mono',monospace;color:var(--charcoal);font-weight:600;}
+
+  /* B2B 专属目录直达 */
+  .card-action{margin-top:14px;padding-top:12px;border-top:1px dashed var(--mist-border);display:flex;justify-content:space-between;align-items:center;}
+  .catalog-link{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:700;color:var(--brass-dark);transition:color 0.15s ease;}
+  .catalog-link:hover{color:var(--indigo-deep);text-decoration:underline;}
+  .catalog-txt{font-size:11px;color:var(--ash-gray);}
+
+  .catalog-cta{margin-top:1px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+    background:#FAF9F6;border:1px solid var(--mist-border);border-top:none;padding:24px 28px;}
+  .catalog-cta b{display:block;font-size:15px;margin-bottom:3px;color:var(--indigo-deep);}
+  .catalog-cta span{font-size:13px;color:var(--ash-gray);}
+
+  /* ---------- Why / QC Split ---------- */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+  @media(max-width:900px){.split{grid-template-columns:1fr;gap:36px;}}
+  .split .copy p{color:var(--ash-gray);line-height:1.75;font-size:15px;margin-bottom:18px;}
+  .qc-list{margin-top:22px;border-top:1px solid var(--mist-border);}
+  .qc-list li{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--mist-border);font-size:13.5px;}
+  .qc-list .qcnum{font-family:'IBM Plex Mono',monospace;color:var(--brass-dark);font-weight:700;}
+  .diagram-box{border:1px solid var(--mist-border);border-radius:6px;padding:30px;background:#FAF9F6;}
+
+  /* ---------- Process Timeline ---------- */
+  .tl-track{display:grid;grid-template-columns:repeat(6,1fr);position:relative;gap:16px;}
+  .tl-track::before{content:'';position:absolute;top:13px;left:0;right:0;height:1px;background:var(--mist-border);z-index:1;}
+  @media(max-width:1024px){.tl-track{grid-template-columns:repeat(3,1fr);}.tl-track::before{display:none;}}
+  @media(max-width:640px){.tl-track{grid-template-columns:1fr;gap:28px;}}
+  .tl-dot{width:26px;height:26px;border-radius:50%;background:var(--porcelain);border:2px solid var(--indigo-deep);
+    display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+    position:relative;z-index:2;margin-bottom:18px;color:var(--indigo-deep);font-weight:700;}
+  .tl-step{padding-right:8px;}
+  .tl-step h4{font-size:14px;font-weight:800;margin-bottom:7px;color:var(--indigo-deep);}
+  .tl-step p{font-size:12.5px;color:var(--ash-gray);line-height:1.6;}
+
+  /* ---------- Contact ---------- */
+  .formsec{background:#FAF9F6;}
+  .formgrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;}
+  @media(max-width:900px){.formgrid{grid-template-columns:1fr;}}
+  .formcol h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(26px,3vw,34px);font-weight:800;margin-bottom:14px;color:var(--indigo-deep);}
+  .formcol p{color:var(--ash-gray);line-height:1.75;font-size:15px;margin-bottom:24px;}
+  .contact-line{display:flex;gap:10px;font-size:13.5px;padding:14px 0;border-top:1px solid var(--mist-border);}
+  .contact-line span:first-child{color:var(--ash-gray);min-width:120px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;}
+  .contact-line strong, .contact-line a{color:var(--charcoal);font-weight:600;}
+  
+  /* B2B 报价资料与即时服务台卡片 */
+  .formbox{background:var(--porcelain);border:1px solid var(--mist-border);padding:36px;border-radius:6px;}
+  .b2b-resource-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--indigo-deep);
+    margin-bottom: 6px;
+  }
+  .b2b-resource-desc {
+    font-size: 12px;
+    color: var(--ash-gray);
+    margin-bottom: 20px;
+    line-height: 1.45;
+  }
+  .quote-checklist{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0 28px;}
+  .quote-check{background:#FAF9F6;border:1px solid var(--mist-border);border-radius:4px;padding:14px 12px;min-height:96px;}
+  .quote-check b{display:block;color:var(--brass-dark);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;margin-bottom:7px;}
+  .quote-check span{display:block;color:var(--charcoal);font-size:12px;line-height:1.45;}
+  @media(max-width:560px){.quote-checklist{grid-template-columns:1fr;}.quote-check{min-height:auto;}}
+  .resource-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .resource-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border: 1px solid var(--mist-border);
+    background: #FAF9F6;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  .resource-btn:hover {
+    border-color: var(--brass-dark);
+    background: var(--porcelain);
+    transform: translateY(-1px);
+  }
+  .resource-btn-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: left;
+  }
+  .resource-btn-info b {
+    font-size: 13px;
+    color: var(--indigo-deep);
+  }
+  .resource-btn-info span {
+    font-size: 10px;
+    color: var(--ash-gray);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .resource-icon-wrap {
+    color: var(--brass-dark);
+    display: flex;
+    align-items: center;
+  }
+  .resource-icon-wrap svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* B2B 即时通讯卡片 */
+  .im-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .im-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px;
+    border-radius: 4px;
+    font-size: 13.5px;
+    font-weight: 700;
+    transition: all 0.18s ease;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  .im-whatsapp {
+    background: #25D366;
+    color: var(--porcelain);
+  }
+  .im-whatsapp:hover {
+    background: #1ebd57;
+    transform: translateY(-1px);
+  }
+  .im-email-copy {
+    background: var(--indigo-deep);
+    color: var(--porcelain);
+    position: relative;
+    overflow: hidden;
+  }
+  .im-email-copy:hover {
+    background: var(--brass-dark);
+    transform: translateY(-1px);
+  }
+  .im-email-copy.copied {
+    background: var(--emerald) !important;
+    pointer-events: none;
+  }
+
+  /* ---------- Featured products & brand stories ---------- */
+  .brand-stories{background:var(--washi);border-top:1px solid var(--mist-border);padding-top:38px;padding-bottom:46px;}
+  .brand-stories > .wrap{max-width:none;padding-left:clamp(24px,4vw,72px);padding-right:clamp(24px,4vw,72px);}
+  .brand-stories .sec-head{max-width:760px;margin-bottom:20px;}
+  .brand-stories-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;}
+  @media(max-width:1200px){.brand-stories-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+  @media(max-width:760px){.brand-stories-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}}
+  @media(max-width:520px){.brand-stories-grid{grid-template-columns:1fr;}}
+  /* 品牌故事采用画廊式卡片，与下方产品规格卡区分开 */
+  .brand-story{background:var(--porcelain);border:1px solid #D7D0C3;border-top:3px solid var(--brass);border-radius:2px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease;}
+  .brand-story:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(13,28,52,.14);}
+  .brand-story-media{position:relative;aspect-ratio:16/9;background:#e6e9ed;overflow:hidden;}
+  .brand-story-media img{width:100%;height:100%;object-fit:cover;}
+  .brand-story-credit{position:absolute;right:8px;bottom:8px;padding:4px 7px;border-radius:2px;background:rgba(13,28,52,.80);color:#fff;font:600 9px/1.2 'IBM Plex Mono',monospace;letter-spacing:.02em;}
+  .brand-story-body{padding:14px 14px 16px;display:flex;flex-direction:column;flex:1;}
+  .brand-story-brand{display:inline-flex;align-self:flex-start;padding:4px 6px;background:#F0ECE4;color:var(--brass-dark);font:700 9px/1.1 'IBM Plex Mono',monospace;letter-spacing:.07em;text-transform:uppercase;}
+  .brand-story h3{font-size:15px;line-height:1.3;color:var(--indigo-deep);margin:9px 0 8px;}
+  .brand-story p{font-size:11.5px;line-height:1.55;color:var(--ash-gray);margin:0 0 13px;}
+  .brand-story-link{margin-top:auto;color:var(--brass-dark);font:700 9.5px 'IBM Plex Mono',monospace;letter-spacing:.02em;}
+  .brand-story-link:hover{color:var(--indigo-deep);}
+
+  .faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:28px;}
+  .faq-item{border:1px solid var(--mist-border);border-radius:4px;background:var(--porcelain);padding:0 18px;}
+  .faq-item summary{cursor:pointer;list-style:none;padding:18px 28px 18px 0;color:var(--indigo-deep);font-size:14px;font-weight:800;line-height:1.45;position:relative;}
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{content:'+';position:absolute;right:0;top:16px;color:var(--brass-dark);font:700 18px 'IBM Plex Mono',monospace;}
+  .faq-item[open] summary::after{content:'−';}
+  .faq-item p{padding:0 0 18px;color:var(--ash-gray);font-size:12.8px;line-height:1.68;}
+  @media(max-width:760px){.faq-grid{grid-template-columns:1fr;}}
+
+  footer{border-top:1px solid var(--mist-border);padding:48px 0 32px;}
+  .footgrid{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:20px;}
+  .footnote{font-size:12px;color:var(--ash-gray);max-width:480px;line-height:1.65;}
+  .footlinks{display:flex;gap:24px;font-size:13px;color:var(--ash-gray);font-weight:500;}
+  .footlinks a:hover{color:var(--indigo-deep);}
+  .footbottom{margin-top:32px;padding-top:20px;border-top:1px solid var(--mist-border);
+    display:flex;justify-content:space-between;font-size:11.5px;color:var(--ash-gray);flex-wrap:wrap;gap:10px;}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s cubic-bezier(0.16, 1, 0.3, 1),transform .5s cubic-bezier(0.16, 1, 0.3, 1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none;}html{scroll-behavior:auto;}}
+
+  /* Launch refinement: compact, procurement-led B2B layout */
+  section[id]{scroll-margin-top:82px;}
+  .navlinks{gap:18px;}
+  .navlinks .nav-cta{background:var(--indigo-deep);color:#fff;padding:9px 13px;border-radius:3px;}
+  .navlinks .nav-cta:hover{background:var(--brass-dark);color:#fff;}
+  .mobile-menu-toggle{display:none;width:38px;height:36px;border:1px solid var(--mist-border);border-radius:4px;background:#fff;padding:8px;cursor:pointer;}
+  .mobile-menu-toggle span{display:block;height:2px;background:var(--indigo-deep);margin:4px 0;}
+  .hero-band{margin-bottom:24px;}
+  .hero-band > .wrap{padding-top:34px;padding-bottom:34px;}
+  .hero-grid{grid-template-columns:1.02fr .98fr;gap:42px;padding-bottom:20px;}
+  .hero-title{font-size:clamp(31px,3.3vw,42px);margin:10px 0 13px;line-height:1.1;}
+  .hero-intro{margin-bottom:16px;line-height:1.58;}
+  .hero-bullets{gap:8px;margin-bottom:18px;}
+  .b2b-trust-bar{margin-top:10px;}
+  .trust-tile{padding:11px 10px;}
+  .hero-meta{padding-top:16px;margin-top:16px;}
+  .hero-contact-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;}
+  .hero-form-box{background:#fff;padding:24px;}
+  .form-header{margin-bottom:14px;}
+  .field{gap:5px;margin-bottom:11px;}
+  .field-row{gap:12px;}
+  .field input,.field select,.field textarea{padding:8px 10px;background:#fff;}
+  .field textarea{min-height:62px;}
+  .hero-submitbtn{padding:11px;margin-top:4px;}
+  .ccards{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;}
+  .ccard-img img{aspect-ratio:16/8.6;}
+  .ccard-body{padding:20px !important;}
+  .ccard-body p{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;}
+  .brand-story{border-top-color:var(--brass-dark);}
+  .brand-story h3{min-height:39px;}
+  .brand-story p{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;}
+  .reveal{opacity:1;transform:none;transition:none;}
+  @media(max-width:1100px){.ccards{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  @media(min-width:1051px) and (max-width:1200px){.brand-stories-grid{grid-template-columns:repeat(5,minmax(0,1fr));}}
+  @media(max-width:920px){
+    nav{position:relative;}
+    .mobile-menu-toggle{display:block;margin-left:auto;}
+    .langswitch-wrap{margin-left:6px;}
+    .navlinks{display:none;position:absolute;top:100%;left:16px;right:16px;z-index:60;padding:10px;background:#fff;border:1px solid var(--mist-border);box-shadow:0 18px 42px rgba(13,28,52,.16);border-radius:4px;white-space:normal;}
+    .navlinks.open{display:flex;flex-direction:column;align-items:stretch;gap:2px;}
+    .navlinks a{padding:11px 12px;}
+    .navlinks .nav-cta{text-align:center;margin-top:5px;}
+    .brandstrip{padding:8px 0;overflow:hidden;}
+    .brandstrip .wrap{padding-left:16px;padding-right:16px;}
+    .brandstrip-track{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;}
+    .brandstrip-track::-webkit-scrollbar{display:none;}
+    .brand-logo-link{flex:0 0 auto;height:28px;padding:0 9px;}
+    .brand-divider{flex:0 0 1px;}
+  }
+  @media(max-width:991px){html,body{max-width:100%;overflow-x:hidden}.hero-grid{grid-template-columns:minmax(0,1fr);width:100%;min-width:0}.hero-left,.hero-right,.hero-form-box,.field,.field-row{width:100%;min-width:0}.field select{max-width:100%}.hero-band > .wrap{padding-top:30px;padding-bottom:30px;}}
+  @media(max-width:720px){.hero-grid,.hero-left,.hero-right,.b2b-trust-bar,.hero-meta,.hero-form-box{width:calc(100vw - 40px);max-width:calc(100vw - 40px)}.ccards{grid-template-columns:1fr;}.hero-contact-grid{grid-template-columns:1fr;gap:12px;}.hero-grid{gap:24px;}.hero-title{font-size:32px;overflow-wrap:anywhere}.brand-story p,.ccard-body p{display:block;overflow:visible;}}
+

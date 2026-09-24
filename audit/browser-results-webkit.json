@@ -1,0 +1,170 @@
+[
+  {
+    "lang": "en",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "zh",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "ja",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "es",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "fr",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "de",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "pt",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "ru",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "ar",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "id",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "vi",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "tr",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "hi",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "bn",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "ur",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "mr",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "te",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "sw",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "ha",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "pcm",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  },
+  {
+    "lang": "mn",
+    "browser": "webkit",
+    "desktopMobile": true,
+    "formMockSuccessErrorTimeout": true,
+    "productSearch": true,
+    "navigation": true
+  }
+]
