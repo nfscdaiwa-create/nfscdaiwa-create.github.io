@@ -1,0 +1,167 @@
+name: Publish JPBuildEST to Cloudflare
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/cloudflare-publish.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: jpbuildest-cloudflare-production
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.repository == 'nfscdaiwa-create/nfscdaiwa-create.github.io' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Publish only to the existing project bound to jpbuildest.com
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || vars.CLOUDFLARE_ACCOUNT_ID }}
+          CI: 'true'
+          WRANGLER_SEND_METRICS: 'false'
+        shell: bash
+        run: |
+          python -u - <<'PY'
+          import concurrent.futures, hashlib, json, os, re, shutil, subprocess, tempfile, time
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+          from urllib.parse import quote
+          from html.parser import HTMLParser
+          domain = 'jpbuildest.com'
+          expected = json.loads(Path('site-version.json').read_text())
+          version = expected['version']
+          report = {'domain': domain, 'version': version, 'commit': os.environ['GITHUB_SHA'], 'published': False, 'verified': False}
+          def save():
+              Path('cloudflare-publish-result.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
+          def live(path):
+              req = Request('https://' + domain + path + '?release_check=' + os.environ['GITHUB_RUN_ID'], headers={'Cache-Control':'no-cache','User-Agent':'EST-Release-Verification/1.0'})
+              with urlopen(req, timeout=15) as res:
+                  return res.status, res.url, res.headers.get('Content-Type',''), res.read(2000000).decode('utf-8')
+          def matched():
+              try:
+                  status, url, mime, body = live('/site-version.json')
+                  report['identityProbe'] = {'status':status,'url':url,'contentType':mime,'bytes':len(body.encode())}
+                  return status == 200 and 'application/json' in mime and json.loads(body).get('version') == version
+              except Exception as e:
+                  report['identityProbeError'] = type(e).__name__
+                  return False
+          try:
+              current = matched()
+              if not current:
+                  token = os.environ.get('CLOUDFLARE_API_TOKEN','')
+                  account = os.environ.get('CLOUDFLARE_ACCOUNT_ID','')
+                  missing = [k for k in ['CLOUDFLARE_API_TOKEN','CLOUDFLARE_ACCOUNT_ID'] if not os.environ.get(k)]
+                  if missing:
+                      for _ in range(3):
+                          time.sleep(10)
+                          if matched():
+                              current = True
+                              break
+                      if not current:
+                          report['missingDeploymentCredentials'] = missing
+                          raise RuntimeError('Cloudflare has not published this release. This repository also lacks configured Cloudflare deployment credentials: ' + ', '.join(missing))
+                  if not current:
+                      assert re.fullmatch(r'[0-9a-fA-F]{32}', account), 'Invalid configured Cloudflare account ID'
+                      def cf(path):
+                          req = Request('https://api.cloudflare.com/client/v4/accounts/' + account + path, headers={'Authorization':'Bearer ' + token,'Content-Type':'application/json'})
+                          with urlopen(req,timeout=20) as res:
+                              data = json.load(res)
+                          assert data.get('success'), 'Cloudflare API rejected the authorized request'
+                          return data
+                      matches = []
+                      for page in range(1,21):
+                          data = cf('/pages/projects?per_page=100&page=' + str(page))
+                          projects = data.get('result',[])
+                          matches.extend(p for p in projects if domain in p.get('domains',[]))
+                          total = data.get('result_info',{}).get('total_pages')
+                          if not projects or len(projects)<100 or (total and page>=total): break
+                      assert len(matches)==1, 'Cannot uniquely identify the EXISTING Pages project bound to jpbuildest.com; no project or DNS was changed'
+                      project = cf('/pages/projects/' + quote(matches[0]['name'],safe=''))['result']
+                      assert domain in project.get('domains',[]), 'Domain binding changed; deployment stopped'
+                      assert project.get('production_branch') == 'main', 'Existing production branch is not main; deployment stopped'
+                      source = (project.get('source') or {}).get('config') or {}
+                      if source.get('repo_name'):
+                          assert source.get('owner') == 'nfscdaiwa-create' and source.get('repo_name') == 'nfscdaiwa-create.github.io', 'Existing Cloudflare project uses a different repository; deployment stopped'
+                      report['project'] = project['name']
+                      report['productionBranch'] = project['production_branch']
+                      print('Verified existing Cloudflare project:', project['name'], 'domain:', domain, flush=True)
+                      staging = Path(tempfile.mkdtemp(prefix='jpbuildest-release-'))
+                      generated = json.loads(Path('audit/build-manifest.json').read_text())['generatedFiles']
+                      paths = set(generated) | {'site-version.json','404.html','robots.txt','sitemap.xml','llms.txt','favicon.svg','_headers','.nojekyll'}
+                      for base in ['img','video']:
+                          paths.update(str(p) for p in Path(base).rglob('*') if p.is_file() and not p.is_symlink())
+                      paths.update(str(p) for p in Path('audit').glob('*') if p.suffix in ['.js','.css'])
+                      for name in paths:
+                          p = Path(name)
+                          assert not p.is_absolute() and '..' not in p.parts and not p.is_symlink(), 'Unsafe asset path'
+                          assert p.is_file(), 'Missing release asset: ' + name
+                          dest = staging / p
+                          dest.parent.mkdir(parents=True,exist_ok=True)
+                          shutil.copyfile(p,dest)
+                      for lang in expected['languages']:
+                          prefix = Path('.') if lang=='en' else Path(lang)
+                          for page in ['','products','company','privacy','brands']:
+                              p = staging/prefix/page/'index.html'
+                              assert p.is_file() and version in p.read_text(), 'Missing reviewed localized page'
+                      subprocess.run(['npx','--yes','wrangler@4','pages','deploy',str(staging),'--project-name',project['name'],'--branch','main','--commit-hash',os.environ['GITHUB_SHA'],'--commit-dirty=true'],check=True,timeout=240)
+                      report['published'] = True
+                      for _ in range(8):
+                          if matched():
+                              current = True
+                              break
+                          time.sleep(10)
+                      assert current, 'Cloudflare accepted upload but production domain is not serving this release'
+              class Metadata(HTMLParser):
+                  def __init__(self):
+                      super().__init__(); self.lang=None; self.canonical=None
+                  def handle_starttag(self,tag,attrs):
+                      a=dict(attrs)
+                      if tag=='html': self.lang=a.get('lang')
+                      if tag=='link' and a.get('rel')=='canonical': self.canonical=a.get('href')
+              routes=[]
+              for lang in expected['languages']:
+                  prefix='/' if lang=='en' else '/'+lang+'/'
+                  for page in ['','products/','company/','privacy/','brands/']:
+                      routes.append((prefix+page,'zh-CN' if lang=='zh' else lang))
+              def verify(item):
+                  path,language=item
+                  try:
+                      status,url,mime,body=live(path); m=Metadata();m.feed(body)
+                      assert status==200 and 'text/html' in mime
+                      assert m.lang==language and m.canonical=='https://'+domain+path
+                      assert version in body and 'site-config' in body
+                      return {'path':path,'ok':True}
+                  except Exception as e:
+                      return {'path':path,'ok':False,'error':type(e).__name__}
+              with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
+                  report['routes']=list(pool.map(verify,routes))
+              report['passed']=sum(r['ok'] for r in report['routes'])
+              assert report['passed']==expected['primaryPages'], 'Some production language routes still do not match'
+              report['verified']=True
+              print('DEPLOYMENT VERIFIED:', domain, version, report['passed'], 'production pages')
+          except Exception as e:
+              report['error']=str(e)
+              print('::error::'+str(e),flush=True)
+              raise
+          finally:
+              save()
+              with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as summary:
+                  summary.write('# JPBuildEST Cloudflare publication\n\n')
+                  summary.write('Production verified: **'+str(report['verified'])+'**\n\n')
+                  summary.write('Domain: `'+domain+'` | Release: `'+version+'`\n\n')
+                  if report.get('project'): summary.write('Existing project: `'+report['project']+'`\n\n')
+                  if report.get('error'): summary.write(report['error']+'\n')
+          PY
+      - name: Retain production deployment evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jpbuildest-cloudflare-publication
+          path: cloudflare-publish-result.json
+          retention-days: 14
+          if-no-files-found: warn
