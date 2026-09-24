@@ -359,7 +359,6 @@
     padding:5px 8px;border-radius:2px;background:rgba(13,28,52,.78);color:#fff;
     font:600 9px/1.2 'IBM Plex Mono',monospace;letter-spacing:.02em;
   }
-  .ccard-img[data-credit]::after{content:attr(data-credit)}
   .hero-photo-rights{bottom:18px;}
   .hero-band > .wrap{position:relative; z-index:2; padding-top:58px; padding-bottom:52px;}
   @media(max-width:991px){
@@ -1351,8 +1350,8 @@
 
     <div class="ccards reveal">
       <article class="ccard" id="cat-wall">
-        <div class="ccard-img" data-credit="© Lilycolor">
-          <img src="img/brand-official/lilycolor-wall.jpg" alt="Lilycolor wallcovering in an interior room" loading="lazy" width="800" height="500">
+        <div class="ccard-img">
+          <img src="img/japan-showroom-sample-library_s.webp" alt="Japanese wallcovering sample books from Sangetsu, Lilycolor and Sincol at the EST Tokyo showroom" loading="lazy" width="560" height="380">
           <span class="ccard-count">4 MANUFACTURERS</span>
         </div>
         <div class="ccard-body">
@@ -1377,8 +1376,8 @@
       </article>
 
       <article class="ccard" id="cat-floor">
-        <div class="ccard-img" data-credit="© TOLI">
-          <img src="img/brand-official/toli-flooring.jpg" alt="TOLI flooring in a living room" loading="lazy" width="600" height="600">
+        <div class="ccard-img">
+          <img src="img/japan-showroom-kitchen-wood_s.webp" alt="Japanese engineered wood and vinyl flooring installed in the EST Tokyo showroom" loading="lazy" width="560" height="380">
           <span class="ccard-count">5 MANUFACTURERS</span>
         </div>
         <div class="ccard-body">
@@ -1404,8 +1403,8 @@
       </article>
 
       <article class="ccard" id="cat-door">
-        <div class="ccard-img" data-credit="© NODA">
-          <img src="img/brand-official/noda-canaeru.jpg" alt="NODA interior door and storage arrangement" loading="lazy" width="1200" height="675">
+        <div class="ccard-img">
+          <img src="img/japan-warehouse-panels-upright_s.webp" alt="Japanese interior door panels and storage units stored upright in the EST warehouse" loading="lazy" width="560" height="380">
           <span class="ccard-count">4 MANUFACTURERS</span>
         </div>
         <div class="ccard-body">
@@ -1431,7 +1430,7 @@
 
       <article class="ccard" id="cat-opening">
         <div class="ccard-img">
-          <img src="img/japan-showroom-sample-library_s.webp" alt="Japanese material samples at a showroom; window and entrance specifications are linked below" loading="lazy" width="560" height="380">
+          <img src="img/japan-showroom-kitchen-compact_s.webp" alt="Japanese window and entrance systems on display at the EST Tokyo showroom" loading="lazy" width="560" height="380">
           <span class="ccard-count">2 MANUFACTURERS</span>
         </div>
         <div class="ccard-body">
@@ -1478,8 +1477,8 @@
       </article>
 
       <article class="ccard" id="cat-board">
-        <div class="ccard-img" data-credit="© Chiyoda Ute">
-          <img src="img/brand-official/chiyoda-board.jpg" alt="Chiyoda Ute gypsum board products" loading="lazy" width="300" height="300">
+        <div class="ccard-img">
+          <img src="img/japan-warehouse-export-crates_s.webp" alt="Crated Japanese gypsum board and ceiling panels staged for container loading" loading="lazy" width="560" height="380">
           <span class="ccard-count">2 MANUFACTURERS</span>
         </div>
         <div class="ccard-body">
@@ -1683,36 +1682,75 @@
   </div>
 </section>
 
-<section id="facilities" class="media-home sec" aria-label="EST field photography and video"><div class="wrap">
- <div class="media-home-head"><div><span class="eyebrow" data-i18n="media_eyebrow">EST FIELD FOOTAGE · JAPAN</span><h2 data-i18n="media_title">See the materials. See the operation.</h2><p data-i18n="media_intro">Photographs and short videos from the showroom and warehouse in Japan. Browse the highlights here, then open the full collection.</p></div><a class="media-all" href="media/" data-i18n="media_all">View all 22 photos and 2 videos ↗</a></div>
- <div class="media-carousel" tabindex="0" role="region" aria-roledescription="carousel" aria-label="EST photo and video highlights">
- <article class="media-slide"  aria-hidden="false" data-slide="0">
-      <div class="media-visual media-video-visual"><video controls playsinline preload="none" poster="img/japan-showroom-kitchen-island_s.webp" aria-labelledby="media-title-0"><source src="video/showroom.mp4" type="video/mp4"></video><button class="media-video-play" type="button" aria-label="Play video">▶</button></div>
-      <div class="media-copy"><span class="media-type" data-i18n="media_slide_1_type">VIDEO · SHOWROOM</span><h3 id="media-title-0" data-i18n="media_slide_1_title">Step inside the showroom.</h3><p data-i18n="media_slide_1_body">A short walk through kitchen displays and material finishes in Japan.</p></div>
-    </article>
-<article class="media-slide" hidden aria-hidden="true" data-slide="1">
-      <div class="media-visual"><img src="img/japan-showroom-kitchen-run_s.webp" srcset="img/japan-showroom-kitchen-run_s.webp 570w, img/japan-showroom-kitchen-run.webp 1200w" sizes="(max-width: 700px) 100vw, 520px" alt="" loading="lazy"></div>
-      <div class="media-copy"><span class="media-type" data-i18n="media_slide_2_type">PHOTO · KITCHEN</span><h3 id="media-title-1" data-i18n="media_slide_2_title">Kitchen finishes at full scale.</h3><p data-i18n="media_slide_2_body">See cabinetry, worktops and fixtures together in the showroom.</p></div>
-    </article>
-<article class="media-slide" hidden aria-hidden="true" data-slide="2">
-      <div class="media-visual"><img src="img/japan-showroom-bath-marble_s.webp" srcset="img/japan-showroom-bath-marble_s.webp 570w, img/japan-showroom-bath-marble.webp 1200w" sizes="(max-width: 700px) 100vw, 520px" alt="" loading="lazy"></div>
-      <div class="media-copy"><span class="media-type" data-i18n="media_slide_3_type">PHOTO · BATH</span><h3 id="media-title-2" data-i18n="media_slide_3_title">Bathroom modules, in person.</h3><p data-i18n="media_slide_3_body">The complete bathroom setting makes the finish and layout easier to assess.</p></div>
-    </article>
-<article class="media-slide" hidden aria-hidden="true" data-slide="3">
-      <div class="media-visual"><img src="img/japan-showroom-sample-library_s.webp" srcset="img/japan-showroom-sample-library_s.webp 570w, img/japan-showroom-sample-library.webp 1200w" sizes="(max-width: 700px) 100vw, 520px" alt="" loading="lazy"></div>
-      <div class="media-copy"><span class="media-type" data-i18n="media_slide_4_type">PHOTO · SAMPLES</span><h3 id="media-title-3" data-i18n="media_slide_4_title">Compare samples and catalogues.</h3><p data-i18n="media_slide_4_body">Manufacturer displays help buyers narrow down materials and models.</p></div>
-    </article>
-<article class="media-slide" hidden aria-hidden="true" data-slide="4">
-      <div class="media-visual media-video-visual"><video controls playsinline preload="none" poster="img/japan-warehouse-forklift-panels_s.webp" aria-labelledby="media-title-4"><source src="video/warehouse.mp4" type="video/mp4"></video><button class="media-video-play" type="button" aria-label="Play video">▶</button></div>
-      <div class="media-copy"><span class="media-type" data-i18n="media_slide_5_type">VIDEO · WAREHOUSE</span><h3 id="media-title-4" data-i18n="media_slide_5_title">See the warehouse operation.</h3><p data-i18n="media_slide_5_body">A short recording of stored materials and forklift movement.</p></div>
-    </article>
-<article class="media-slide" hidden aria-hidden="true" data-slide="5">
-      <div class="media-visual"><img src="img/japan-warehouse-export-crates_s.webp" srcset="img/japan-warehouse-export-crates_s.webp 570w, img/japan-warehouse-export-crates.webp 1200w" sizes="(max-width: 700px) 100vw, 520px" alt="" loading="lazy"></div>
-      <div class="media-copy"><span class="media-type" data-i18n="media_slide_6_type">PHOTO · WAREHOUSE</span><h3 id="media-title-5" data-i18n="media_slide_6_title">Materials staged in the warehouse.</h3><p data-i18n="media_slide_6_body">Bundled boards and crates are photographed before shipment arrangements.</p></div>
-    </article>
- <div class="media-controls"><div class="media-arrows"><button class="media-prev" type="button" aria-label="Previous image">←</button><button class="media-next" type="button" aria-label="Next image">→</button></div><span class="media-count" aria-live="polite">01 / 06</span></div>
- </div>
- </div></section>
+<section class="sec fac" id="facilities">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">SHOWROOM &amp; LOGISTICS · TOKYO, JAPAN</span>
+      <h2>Real Stock. Real Showroom. Shipped From Japan.</h2>
+      <p>Buyers who have never sourced from Japan want to know one thing first: is there anything physically behind the website. These are our own facilities — the Tokyo showroom where product is specified, and the warehouse where containers are consolidated and loaded.</p>
+    </div>
+
+    <div class="fac-hero reveal">
+      <video autoplay muted loop playsinline preload="none" poster="img/japan-showroom-tokyo-cover.jpg" aria-label="Walkthrough of the EST showroom in Tokyo">
+        <source src="video/showroom.mp4" type="video/mp4">
+      </video>
+      <div class="fac-hero-cap">
+        <span class="eyebrow">SHOWROOM WALKTHROUGH</span>
+        <h3>Tokyo Showroom — Specify Before You Ship</h3>
+        <p>Full working kitchen, bath and washroom sets from LIXIL, Panasonic and TOCLAS on permanent display, alongside the complete Sangetsu, Lilycolor and Sincol sample libraries. Overseas buyers are welcome to visit, or request a guided video walkthrough of any specific model.</p>
+      </div>
+    </div>
+
+    <div class="case-grid reveal">
+      <article class="case">
+        <div class="case-media">
+          <img src="img/japan-showroom-kitchen-island_s.webp" alt="Japanese island kitchen with stainless steel worktop on display in the EST Tokyo showroom" loading="lazy" width="500" height="375">
+          <div class="stack">
+            <img src="img/japan-showroom-kitchen-run_s.webp" alt="Panasonic and LIXIL kitchen units on display" loading="lazy" width="250" height="187">
+            <img src="img/japan-showroom-bath-rakuvia_s.webp" alt="Japanese unit bathroom module on display" loading="lazy" width="250" height="187">
+          </div>
+        </div>
+        <div class="case-body">
+          <span class="eyebrow">CASE 01 · HOSPITALITY FIT-OUT</span>
+          <h3>Mixed-Brand Interior Package, Specified On Site</h3>
+          <p>A single project rarely uses a single manufacturer. Kitchens from one brand, unit baths from another, wallcovering and flooring from a third. Our showroom lets a buyer compare all of them side by side in one visit, lock the specification, and receive one consolidated quotation instead of chasing five separate Japanese suppliers who do not export.</p>
+          <div class="case-facts"><span>MULTI-BRAND</span><span>ONE QUOTATION</span><span>ONE CONTAINER</span></div>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="case-media">
+          <img src="img/japan-warehouse-forklift-crates_s.webp" alt="Forklift loading Japanese building material pallets inside the EST warehouse" loading="lazy" width="500" height="375">
+          <div class="stack">
+            <img src="img/japan-warehouse-panels-upright_s.webp" alt="Japanese engineered flooring and door panels stored upright in the warehouse" loading="lazy" width="250" height="187">
+            <img src="img/japan-warehouse-export-crates_s.webp" alt="Export crates of Japanese building materials stacked for container loading" loading="lazy" width="250" height="187">
+          </div>
+        </div>
+        <div class="case-body">
+          <span class="eyebrow">CASE 02 · CONTAINER CONSOLIDATION</span>
+          <h3>From Ten Factories Into One Container</h3>
+        <p>Goods arrive from each manufacturer under their own brand manifest, are checked against the packing list, then crated and staged in our warehouse until the container is full. Buyers ordering less than a full load from any single brand can consolidate across brands, with applicable fire, JIS and F&#9733;&#9733;&#9733;&#9733; documentation confirmed per line item.</p>
+          <div class="case-facts"><span>FCL / LCL</span><span>YOKOHAMA · OSAKA · NAGOYA</span><span>FULL DOCUMENTATION</span></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="gal reveal">
+        <figure><img src="img/japan-showroom-kitchen-stella_s.webp" alt="EST Tokyo showroom and Japan warehouse — Japanese building materials 1" loading="lazy" width="380" height="380"></figure>
+        <figure><img src="img/japan-showroom-kitchen-island-dark_s.webp" alt="EST Tokyo showroom and Japan warehouse — Japanese building materials 2" loading="lazy" width="380" height="380"></figure>
+        <figure><img src="img/japan-showroom-bath-marble_s.webp" alt="EST Tokyo showroom and Japan warehouse — Japanese building materials 3" loading="lazy" width="380" height="380"></figure>
+        <figure><img src="img/japan-showroom-bath-selevia_s.webp" alt="EST Tokyo showroom and Japan warehouse — Japanese building materials 4" loading="lazy" width="380" height="380"></figure>
+        <figure><img src="img/japan-showroom-bath-module_s.webp" alt="EST Tokyo showroom and Japan warehouse — Japanese building materials 5" loading="lazy" width="380" height="380"></figure>
+        <figure><img src="img/japan-showroom-vanity-row_s.webp" alt="EST Tokyo showroom and Japan warehouse — Japanese building materials 6" loading="lazy" width="380" height="380"></figure>
+        <figure><img src="img/japan-showroom-kitchen-compact_s.webp" alt="EST Tokyo showroom and Japan warehouse — Japanese building materials 7" loading="lazy" width="380" height="380"></figure>
+        <figure><img src="img/japan-showroom-kitchen-wood_s.webp" alt="EST Tokyo showroom and Japan warehouse — Japanese building materials 8" loading="lazy" width="380" height="380"></figure>
+        <figure><img src="img/japan-warehouse-yard_s.webp" alt="EST Tokyo showroom and Japan warehouse — Japanese building materials 9" loading="lazy" width="380" height="380"></figure>
+        <figure><img src="img/japan-warehouse-forklift-panels_s.webp" alt="EST Tokyo showroom and Japan warehouse — Japanese building materials 10" loading="lazy" width="380" height="380"></figure>
+        <figure><img src="img/japan-warehouse-export-crates_s.webp" alt="EST Tokyo showroom and Japan warehouse — Japanese building materials 11" loading="lazy" width="380" height="380"></figure>
+        <figure><img src="img/japan-showroom-bath-unit_s.webp" alt="EST Tokyo showroom and Japan warehouse — Japanese building materials 12" loading="lazy" width="380" height="380"></figure>
+    </div>
+  </div>
+</section>
 
 <section class="sec" id="why">
   <div class="wrap">
