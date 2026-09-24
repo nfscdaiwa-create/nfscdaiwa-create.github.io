@@ -1,5 +1,6 @@
 {
   "version": "20260924-unified1",
+  "releaseId": "20260924-unified1",
   "languages": [
     "en",
     "zh",
@@ -24,6 +25,5 @@
     "mn"
   ],
   "primaryPages": 126,
-  "sourceCommit": "ec0ea40c9f84f9b6c32ff329c73133e081ee969b",
   "translationMethod": "authored dictionaries rendered at build time"
 }

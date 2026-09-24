@@ -386,7 +386,7 @@ https://jpbuildest.com/privacy/
 21 static language editions, including English, Chinese, Japanese and Mongolian.
 https://jpbuildest.com/sitemap.xml
 ''')
-Path('site-version.json').write_text(json.dumps({'version':VERSION,'languages':LOCALES,'primaryPages':len(urls),'sourceCommit':os.environ.get('GITHUB_SHA','local-test'),'translationMethod':'authored dictionaries rendered at build time'},ensure_ascii=False,indent=2)+'\n')
+Path('site-version.json').write_text(json.dumps({'version':VERSION,'releaseId':VERSION,'languages':LOCALES,'primaryPages':len(urls),'translationMethod':'authored dictionaries rendered at build time'},ensure_ascii=False,indent=2)+'\n')
 Path('audit/build-manifest.json').write_text(json.dumps({'version':VERSION,'generatedFiles':build_files,'primaryUrls':urls,'optimizedImages':image_stats},indent=2)+'\n')
 print(f'Built {len(urls)} primary pages and {len(build_files)-len(urls)} compatibility aliases across {len(LOCALES)} languages.')
 print('Optimized images:',image_stats)
