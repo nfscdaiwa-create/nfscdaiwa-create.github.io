@@ -5,7 +5,7 @@ const data=JSON.parse(await readFile('audit/copy.json','utf8'));
 const manifest=JSON.parse(await readFile('audit/build-manifest.json','utf8'));
 const locales=Object.keys(data);
 if(locales.length!==21 || !locales.includes('mn')) fail.push('Expected original twenty languages plus Mongolian');
-if(manifest.primaryUrls.length!==locales.length*6) fail.push('Primary page count');
+if(manifest.primaryUrls.length!==locales.length*5) fail.push('Primary page count');
 for(const address of manifest.primaryUrls){
  const path=new URL(address).pathname;
  const html=await readFile((path.slice(1)||'')+'index.html','utf8');

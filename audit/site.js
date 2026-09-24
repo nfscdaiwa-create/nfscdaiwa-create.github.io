@@ -42,13 +42,12 @@
     const contextParts = [category && select ? select.selectedOptions[0]?.textContent : '', params.get('brand') || ''].filter(Boolean);
     if (context && contextParts.length) { context.textContent = contextParts.join(' · '); context.hidden = false; }
     let submitting = false;
-    const button = form.querySelector('button[type="submit"]');
-    const submitInquiry = async event => {
+    form.addEventListener('submit', async event => {
       event.preventDefault();
-      if (submitting) return;
-      if (!form.checkValidity()) { form.reportValidity(); return; }
+      if (submitting || !form.reportValidity()) return;
       if (form.elements.namedItem('_gotcha').value) return;
       submitting = true;
+      const button = form.querySelector('button[type="submit"]');
       const status = document.getElementById('quickStatus');
       const original = button.textContent;
       button.disabled = true;
@@ -81,9 +80,7 @@
         button.textContent = original;
         form.removeAttribute('aria-busy');
       }
-    };
-    form.addEventListener('submit', submitInquiry);
-    button.addEventListener('click', submitInquiry);
+    });
   }
   document.getElementById('langToggle')?.addEventListener('change', event => {
     const next = event.target.value;
@@ -132,5 +129,4 @@
     const status = document.getElementById('search-status');
     status.textContent = count ? String(count) : words.noResults;
   });
-  document.documentElement.dataset.siteReady = 'true';
 })();
