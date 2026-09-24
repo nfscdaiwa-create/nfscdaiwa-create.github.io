@@ -27,12 +27,11 @@ jobs:
           import concurrent.futures, hashlib, json, re, socket, time
           from pathlib import Path
           from urllib.request import Request, urlopen
-          from urllib.error import HTTPError
           from html.parser import HTMLParser
           expected = json.loads(Path('site-version.json').read_text())
           version = expected['version']
           base = 'https://jpbuildest.com'
-          report = {'expectedVersion': version, 'dns': sorted(set(x[4][0] for x in socket.getaddrinfo('jpbuildest.com', 443))), 'routes': []}
+          report = {'expectedVersion': version, 'dns': sorted(set(x[4][0] for x in socket.getaddrinfo('jpbuildest.com', 443))), 'routes': [], 'diagnostics': []}
           def get(path):
               request = Request(base + path + '?est_verify=' + version, headers={'User-Agent': 'EST-Deployment-Verification/1.0', 'Cache-Control': 'no-cache'})
               with urlopen(request, timeout=20) as response:
@@ -44,19 +43,29 @@ jobs:
                   attrs = dict(attrs)
                   if tag == 'html': self.lang = attrs.get('lang')
                   if tag == 'link' and attrs.get('rel') == 'canonical': self.canonical = attrs.get('href')
-          for attempt in range(8):
+          print('DNS:', report['dns'])
+          for path in ['/', '/site-version.json', '/zh/', '/mn/company/']:
+              try:
+                  status, final, headers, body = get(path)
+                  title = re.search(r'<title[^>]*>(.*?)</title>', body, re.S | re.I)
+                  item = {'path': path, 'status': status, 'finalURL': final, 'headers': {k:v for k,v in headers.items() if k.lower() in ['server','content-type','cache-control','cf-cache-status','age','location','x-github-request-id','cf-ray']}, 'title': title.group(1) if title else None, 'bytes': len(body.encode()), 'newVersionPresent': version in body, 'bodyStart': body[:250]}
+              except Exception as error:
+                  item = {'path': path, 'error': str(error)}
+              report['diagnostics'].append(item)
+              print('DIAGNOSTIC', json.dumps(item, ensure_ascii=False))
+          for attempt in range(4):
               try:
                   status, final, headers, body = get('/site-version.json')
                   live = json.loads(body)
                   report['liveVersion'] = live
                   assert live.get('version') == version, 'The domain still serves a different release'
                   assert live.get('primaryPages') == expected['primaryPages']
-                  print('Production version matched:', version, 'server:', headers.get('Server'))
+                  print('Production version matched:', version)
                   break
               except Exception as error:
                   report['identityError'] = str(error)
                   print('Identity check attempt', attempt + 1, str(error), flush=True)
-                  if attempt == 7:
+                  if attempt == 3:
                       Path('live-check-result.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
                       raise
                   time.sleep(10)
